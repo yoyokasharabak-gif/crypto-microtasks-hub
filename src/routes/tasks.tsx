@@ -196,11 +196,6 @@ function EmptyQuestSlot({ i }: { i: number }) {
     </motion.div>
   );
 }
-      </main>
-      <Footer />
-    </div>
-  );
-}
 
 function QuestCard({ q, i }: { q: Quest; i: number }) {
   const diffColor =
