@@ -63,7 +63,7 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center shrink-0">
+          <div className="hidden xl:flex items-center shrink-0">
             <button className="btn-pixel !py-2 !px-4 !text-sm">
               <span className="text-bronze">⛁</span>
               <span>Connect</span>
