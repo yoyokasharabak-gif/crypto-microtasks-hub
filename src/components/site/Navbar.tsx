@@ -5,11 +5,11 @@ import { Menu, X } from "lucide-react";
 import { PixelEmblem } from "./PixelEmblem";
 
 const navLinks = [
-  { to: "/", label: "Hall" },
-  { to: "/tasks", label: "Quests" },
-  { to: "/dashboard", label: "Stats" },
-  { to: "/post-task", label: "Post" },
-  { to: "/leaderboard", label: "Register" },
+  { to: "/", label: "Hangar" },
+  { to: "/tasks", label: "Bounty Board" },
+  { to: "/dashboard", label: "Crew Manifest" },
+  { to: "/post-task", label: "Admiralty" },
+  { to: "/leaderboard", label: "Contract" },
 ] as const;
 
 export function Navbar() {
