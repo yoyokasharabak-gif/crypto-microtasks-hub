@@ -46,12 +46,12 @@ export function Navbar() {
             </span>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 flex-1 justify-end xl:justify-center min-w-0">
             {navLinks.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
-                className="font-mono text-[13px] xl:text-sm tracking-[0.18em] uppercase text-bronze-dim hover:text-bronze transition-colors group whitespace-nowrap"
+                className="font-mono text-[12px] xl:text-[13px] tracking-[0.16em] uppercase text-bronze-dim hover:text-bronze transition-colors group whitespace-nowrap"
                 activeProps={{ className: "text-bronze" }}
                 activeOptions={{ exact: l.to === "/" }}
               >
