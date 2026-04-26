@@ -1,52 +1,53 @@
 import { Link } from "@tanstack/react-router";
-import { Diamond, Twitter, Github, MessageCircle, Send } from "lucide-react";
+import { Twitter, Github, MessageCircle, Send } from "lucide-react";
+import { PixelEmblem } from "./PixelEmblem";
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-[rgba(197,165,63,0.15)] mt-32">
-      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-20">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-12">
+    <footer className="relative mt-24" style={{ borderTop: "1px solid rgba(201,168,124,0.25)" }}>
+      <div className="mx-auto max-w-[1280px] px-4 md:px-8 py-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
           <div className="col-span-2">
             <Link to="/" className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-sm border border-[rgba(197,165,63,0.4)] text-gold">
-                <Diamond className="h-3.5 w-3.5" strokeWidth={1.5} />
-              </span>
-              <span className="serif text-2xl font-medium text-gold">McKWork</span>
+              <PixelEmblem size={28} />
+              <span className="font-mono text-bronze text-2xl tracking-[0.18em]">McKWORK</span>
             </Link>
-            <p className="accent-italic mt-6 text-lg text-foreground/85 max-w-sm leading-snug">
-              Earn with integrity. Work with purpose.
+            <p className="accent-italic mt-6 text-lg text-parchment max-w-sm leading-snug">
+              The realm's most elegant work-for-crypto guild.
             </p>
-            <p className="mt-4 text-sm text-silver max-w-sm leading-relaxed">
-              The considered platform for global microwork on Solana. Restraint, reliability, and instant payment.
+            <p className="mt-3 text-sm text-bronze-dim max-w-sm leading-relaxed">
+              Accept microtasks. Validate data. Collect your bounty. Built on Solana.
             </p>
-            <div className="mt-8 flex gap-3 max-w-sm">
+            <div className="mt-7 flex gap-2 max-w-sm">
               <input
-                placeholder="your@email.com"
-                className="flex-1 bg-surface border border-[rgba(74,112,139,0.4)] rounded-full px-5 py-3 text-sm placeholder:text-silver/60 focus:outline-none focus:border-[oklch(0.74_0.13_88)] transition-colors"
+                placeholder="your@scroll.com"
+                className="flex-1 bg-black/40 px-4 py-3 font-mono text-sm text-parchment placeholder:text-bronze-dim/60 focus:outline-none"
+                style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
               />
-              <button className="btn-gold rounded-full px-5 py-3 text-xs uppercase tracking-[0.12em] font-medium">
-                Subscribe
-              </button>
+              <button className="btn-pixel-solid !text-sm !py-2 !px-4">Join</button>
             </div>
           </div>
 
-          <FooterCol title="Platform" links={["Tasks", "Post a Task", "Leaderboard", "Pricing"]} />
-          <FooterCol title="Resources" links={["How It Works", "FAQ", "Journal", "Help Centre"]} />
+          <FooterCol title="Hall" links={["Quests", "Post Quest", "Register", "Tariffs"]} />
+          <FooterCol title="Scrolls" links={["How It Works", "FAQ", "Codex", "Help"]} />
           <FooterCol title="Office" links={["Terms", "Privacy", "Cookies", "Contact"]} />
         </div>
 
-        <div className="divider-gold mt-16" />
+        <div className="quest-rule mt-14">
+          <span>End of Page</span>
+        </div>
 
-        <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-xs text-silver tracking-wide">
-            © 2026 McKWork &nbsp;·&nbsp; Built on Solana &nbsp;·&nbsp; Trusted by 10,000+ workers worldwide
+        <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="font-mono text-sm text-bronze-dim tracking-wider">
+            © 2026 McKWork Guild · All rights reserved · Built on Solana
           </p>
           <div className="flex gap-2">
             {[Twitter, MessageCircle, Send, Github].map((Icon, i) => (
               <a
                 key={i}
                 href="#"
-                className="h-9 w-9 rounded-full border border-[rgba(197,165,63,0.2)] flex items-center justify-center text-silver hover:text-gold hover:border-[rgba(197,165,63,0.5)] transition-all"
+                className="h-9 w-9 flex items-center justify-center text-bronze-dim hover:text-bronze transition-colors"
+                style={{ border: "1px solid rgba(201,168,124,0.3)", boxShadow: "1px 1px 0 #000" }}
               >
                 <Icon className="h-3.5 w-3.5" />
               </a>
@@ -61,12 +62,12 @@ export function Footer() {
 function FooterCol({ title, links }: { title: string; links: string[] }) {
   return (
     <div>
-      <h4 className="label-classic text-gold mb-5">{title}</h4>
+      <h4 className="label-pixel mb-5">{title}</h4>
       <ul className="space-y-3">
         {links.map((l) => (
           <li key={l}>
-            <a href="#" className="text-sm text-silver hover:text-gold transition-colors">
-              {l}
+            <a href="#" className="font-mono text-base text-bronze-dim hover:text-bronze tracking-wider transition-colors">
+              ▸ {l}
             </a>
           </li>
         ))}
