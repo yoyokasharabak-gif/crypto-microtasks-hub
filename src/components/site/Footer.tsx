@@ -4,37 +4,39 @@ import { PixelEmblem } from "./PixelEmblem";
 
 export function Footer() {
   return (
-    <footer className="relative mt-24" style={{ borderTop: "1px solid rgba(201,168,124,0.25)" }}>
+    <footer className="relative mt-24" style={{ borderTop: "2px solid rgba(212,175,55,0.3)" }}>
       <div className="mx-auto max-w-[1280px] px-4 md:px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
           <div className="col-span-2">
             <Link to="/" className="flex items-center gap-3">
-              <PixelEmblem size={28} />
-              <span className="font-mono text-bronze text-2xl tracking-[0.18em]">McKWORK</span>
+              <PixelEmblem size={32} />
+              <span className="font-mono text-bronze text-2xl tracking-[0.2em]" style={{ textShadow: "0 0 10px rgba(212,175,55,0.4)" }}>
+                McKWORK
+              </span>
             </Link>
             <p className="accent-italic mt-6 text-lg text-parchment max-w-sm leading-snug">
-              The realm's most elegant work-for-crypto guild.
+              The galaxy's most elegant work-for-crypto guild.
             </p>
             <p className="mt-3 text-sm text-bronze-dim max-w-sm leading-relaxed">
-              Accept microtasks. Validate data. Collect your bounty. Built on Solana.
+              Accept contracts. Validate data. Earn solar gold. Built on Solana.
             </p>
             <div className="mt-7 flex gap-2 max-w-sm">
               <input
-                placeholder="your@scroll.com"
+                placeholder="your@frequency.net"
                 className="flex-1 bg-black/40 px-4 py-3 font-mono text-sm text-parchment placeholder:text-bronze-dim/60 focus:outline-none"
-                style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
+                style={{ border: "2px solid rgba(212,175,55,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
               />
               <button className="btn-pixel-solid !text-sm !py-2 !px-4">Join</button>
             </div>
           </div>
 
-          <FooterCol title="Hall" links={["Quests", "Post Quest", "Register", "Tariffs"]} />
-          <FooterCol title="Scrolls" links={["How It Works", "FAQ", "Codex", "Help"]} />
+          <FooterCol title="Hangar" links={["Bounty Board", "Post Contract", "Crew Manifest", "Tariffs"]} />
+          <FooterCol title="Charts" links={["About", "How it Works", "FAQ", "Help"]} />
           <FooterCol title="Office" links={["Terms", "Privacy", "Cookies", "Contact"]} />
         </div>
 
         <div className="quest-rule mt-14">
-          <span>End of Page</span>
+          <span>End of Transmission</span>
         </div>
 
         <div className="mt-6 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -47,7 +49,7 @@ export function Footer() {
                 key={i}
                 href="#"
                 className="h-9 w-9 flex items-center justify-center text-bronze-dim hover:text-bronze transition-colors"
-                style={{ border: "2px solid rgba(201,168,124,0.4)", boxShadow: "2px 2px 0 #000" }}
+                style={{ border: "2px solid rgba(212,175,55,0.4)", boxShadow: "2px 2px 0 #000" }}
               >
                 <Icon className="h-3.5 w-3.5" />
               </a>
