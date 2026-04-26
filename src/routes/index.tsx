@@ -1,15 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
-  Wallet,
-  ClipboardList,
-  Coins,
-  Zap,
-  Globe,
-  Wallet as WalletIcon,
-  Target,
-  ShieldCheck,
-  Sparkles,
   ArrowRight,
   Bot,
   Image as ImageIcon,
@@ -17,12 +8,10 @@ import {
   Mic,
   ShieldAlert,
   CheckCircle2,
-  Trophy,
-  CircleCheck,
+  Wallet,
+  ClipboardList,
+  Coins,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Accordion,
   AccordionContent,
@@ -36,11 +25,11 @@ import { AnimatedCounter } from "@/components/site/AnimatedCounter";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "McKWork — Earn SOL by Completing Simple Microtasks" },
+      { title: "McKWork — Earn with Integrity. Work with Purpose." },
       {
         name: "description",
         content:
-          "Join 10,000+ workers worldwide. Get paid instantly in SOL for image labeling, surveys, transcription, and more. No experience needed.",
+          "A considered platform for global microwork on Solana. Reliable tasks, instant payment, restrained design. Join 10,000+ workers worldwide.",
       },
     ],
   }),
@@ -48,8 +37,8 @@ export const Route = createFileRoute("/")({
 });
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.2, 0.9, 0.4, 1.1] as const } },
 };
 
 function Landing() {
@@ -57,12 +46,11 @@ function Landing() {
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       <Navbar />
       <Hero />
-      <TrustBadges />
+      <Manifesto />
       <HowItWorks />
-      <Features />
       <Categories />
       <Testimonials />
-      <Leaderboard />
+      <Register />
       <FAQ />
       <FinalCTA />
       <Footer />
@@ -73,133 +61,88 @@ function Landing() {
 /* ---------- HERO ---------- */
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-radial-brand pointer-events-none" />
-      <div className="absolute inset-0 grid-pattern opacity-40 pointer-events-none" />
-
-      {/* Floating coins */}
-      <FloatingCoin className="top-24 left-[8%] hidden md:block" delay={0} />
-      <FloatingCoin className="top-40 right-[10%] hidden md:block" delay={1.5} purple />
-      <FloatingCoin className="bottom-24 left-[15%] hidden lg:block" delay={2.8} />
-
-      <div className="relative mx-auto max-w-7xl px-4 md:px-6 pt-20 md:pt-28 pb-16 md:pb-24">
+    <section className="relative">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 pt-20 md:pt-32 pb-20 md:pb-28">
         <motion.div
           initial="hidden"
           animate="show"
-          variants={{ show: { transition: { staggerChildren: 0.12 } } }}
-          className="max-w-4xl mx-auto text-center"
+          variants={{ show: { transition: { staggerChildren: 0.08 } } }}
+          className="max-w-3xl"
         >
-          <motion.div variants={fadeUp}>
-            <Badge className="glass border-primary/30 text-primary rounded-full px-4 py-1.5 text-xs font-medium">
-              <Sparkles className="h-3 w-3 mr-1.5" />
-              Powered by Solana · Instant payouts
-            </Badge>
-          </motion.div>
+          <motion.p variants={fadeUp} className="label-classic text-gold">
+            Established 2026 · Built on Solana
+          </motion.p>
 
           <motion.h1
             variants={fadeUp}
-            className="mt-6 text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-[1.05]"
+            className="mt-8 serif text-5xl sm:text-6xl md:text-7xl leading-[1.05]"
           >
-            McKWork —{" "}
-            <span className="text-gradient-brand">Earn SOL</span>{" "}
-            by Completing Simple Microtasks
+            Earn with integrity.
+            <br />
+            <span className="text-gold accent-italic font-normal">Work with purpose.</span>
           </motion.h1>
 
           <motion.p
             variants={fadeUp}
-            className="mt-6 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto"
+            className="mt-8 text-lg text-silver max-w-xl leading-relaxed"
           >
-            Join 10,000+ workers worldwide. Get paid instantly for tasks like image labeling,
-            data validation, and surveys. No experience needed. Start earning today.
+            McKWork is a measured platform for global microwork. Complete tasks of consequence —
+            data labelling, validation, transcription, surveys — and receive Solana the moment
+            your work is verified.
           </motion.p>
 
-          <motion.div variants={fadeUp} className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
-            <Button
-              size="lg"
-              className="h-14 px-8 rounded-xl bg-gradient-brand text-background font-semibold text-base hover:opacity-95 hover:glow-green-strong transition-all"
-            >
-              Start Earning Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="h-14 px-8 rounded-xl border-border bg-white/[0.02] text-foreground hover:bg-white/[0.05] hover:border-primary/40 text-base"
-            >
-              Post a Task
-            </Button>
+          <motion.div variants={fadeUp} className="mt-12 flex flex-col sm:flex-row gap-4">
+            <button className="btn-gold rounded-full px-8 py-4 text-xs uppercase tracking-[0.14em] font-medium inline-flex items-center justify-center gap-2">
+              Begin earning <ArrowRight className="h-4 w-4" />
+            </button>
+            <button className="btn-gold-outline rounded-full px-8 py-4 text-xs uppercase tracking-[0.14em] font-medium">
+              Post a task
+            </button>
           </motion.div>
+        </motion.div>
 
-          {/* Stats */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6"
-          >
-            {[
-              { v: 50000, s: "+", l: "Tasks Completed" },
-              { v: 12000, s: "+", l: "Active Workers" },
-              { v: 150000, s: "+", l: "Total Paid", p: "$" },
-              { v: 180, s: "+", l: "Countries Served" },
-            ].map((s, i) => (
-              <div key={i} className="glass rounded-2xl p-4 md:p-6 hover-lift">
-                <div className="text-2xl md:text-4xl font-bold text-gradient-brand">
-                  <AnimatedCounter value={s.v} suffix={s.s} prefix={s.p ?? ""} />
-                </div>
-                <div className="mt-1 text-xs md:text-sm text-muted-foreground">{s.l}</div>
+        {/* Stats — newspaper-style */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-24 md:mt-32 border-t border-[rgba(197,165,63,0.2)] pt-10 grid grid-cols-2 md:grid-cols-4 gap-y-10 gap-x-6"
+        >
+          {[
+            { v: 50000, s: "+", l: "Tasks completed" },
+            { v: 12000, s: "+", l: "Active workers" },
+            { v: 150000, s: "+", l: "Total paid", p: "$" },
+            { v: 180, s: "+", l: "Countries served" },
+          ].map((s, i) => (
+            <div key={i} className="md:border-r md:last:border-r-0 border-[rgba(197,165,63,0.15)] md:pr-6">
+              <div className="serif text-4xl md:text-5xl text-gold tabular-nums">
+                <AnimatedCounter value={s.v} suffix={s.s} prefix={s.p ?? ""} />
               </div>
-            ))}
-          </motion.div>
+              <div className="label-classic mt-3">{s.l}</div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
   );
 }
 
-function FloatingCoin({
-  className,
-  delay = 0,
-  purple = false,
-}: {
-  className?: string;
-  delay?: number;
-  purple?: boolean;
-}) {
-  return (
-    <div
-      className={`absolute h-12 w-12 rounded-full animate-float ${className}`}
-      style={{
-        animationDelay: `${delay}s`,
-        background: purple
-          ? "radial-gradient(circle at 30% 30%, #c794ff, #9945FF)"
-          : "radial-gradient(circle at 30% 30%, #7df5c2, #14F195)",
-        boxShadow: purple
-          ? "0 0 30px rgba(153,69,255,0.4)"
-          : "0 0 30px rgba(20,241,149,0.4)",
-      }}
-    >
-      <div className="h-full w-full rounded-full flex items-center justify-center text-background font-bold text-xs">
-        ◎
-      </div>
-    </div>
-  );
-}
-
-/* ---------- TRUST BADGES ---------- */
-function TrustBadges() {
-  const items = [
-    { icon: ShieldCheck, label: "Powered by Solana" },
-    { icon: Zap, label: "Instant Payments" },
-    { icon: CircleCheck, label: "No Hidden Fees" },
-    { icon: Globe, label: "Global Community" },
+/* ---------- MANIFESTO STRIP ---------- */
+function Manifesto() {
+  const tenets = [
+    "Powered by Solana",
+    "Instant payment",
+    "Two percent fee",
+    "No minimum payout",
   ];
   return (
-    <section className="border-y border-border bg-surface/40">
-      <div className="mx-auto max-w-7xl px-4 md:px-6 py-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {items.map(({ icon: Icon, label }) => (
-            <div key={label} className="flex items-center gap-2 justify-center text-sm text-muted-foreground">
-              <Icon className="h-4 w-4 text-primary" />
-              <span>{label}</span>
+    <section className="border-y border-[rgba(197,165,63,0.15)]">
+      <div className="mx-auto max-w-[1280px] px-6 md:px-10 py-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {tenets.map((t) => (
+            <div key={t} className="flex items-center gap-3">
+              <span className="h-px w-8 bg-[oklch(0.74_0.13_88)]" />
+              <span className="label-classic text-foreground/90">{t}</span>
             </div>
           ))}
         </div>
@@ -212,83 +155,42 @@ function TrustBadges() {
 function HowItWorks() {
   const steps = [
     {
+      n: "01",
       icon: Wallet,
-      title: "Connect Your Wallet",
-      desc: "Connect Phantom, Backpack, or Solflare in seconds. No signup forms.",
+      title: "Connect your wallet",
+      desc: "Phantom, Backpack, Solflare or Glow — connect in seconds. No applications, no waiting list.",
     },
     {
+      n: "02",
       icon: ClipboardList,
-      title: "Choose Your Tasks",
-      desc: "Browse thousands of microtasks from categories that match your skills.",
+      title: "Choose your tasks",
+      desc: "A curated atelier of microtasks across categories. Filter by reward, difficulty, and time.",
     },
     {
+      n: "03",
       icon: Coins,
-      title: "Complete & Earn",
-      desc: "Finish tasks, get verified, receive SOL instantly to your wallet.",
+      title: "Complete and earn",
+      desc: "Submit your work. Verification follows promptly. Solana arrives in your wallet within minutes.",
     },
   ];
   return (
-    <Section
-      eyebrow="Getting Started"
-      title={<>Three steps to <span className="text-gradient-brand">your first SOL</span></>}
-      subtitle="No applications. No waiting. Just connect and start earning."
-    >
-      <div className="grid md:grid-cols-3 gap-6 relative">
-        {/* Connecting line */}
-        <div className="hidden md:block absolute top-12 left-[16%] right-[16%] h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+    <Section eyebrow="Process" title="Three steps to your first SOL">
+      <div className="grid md:grid-cols-3 gap-px bg-[rgba(197,165,63,0.15)] border border-[rgba(197,165,63,0.15)] rounded-md overflow-hidden">
         {steps.map((s, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: i * 0.15 }}
-            className="relative glass rounded-2xl p-6 md:p-8 hover-lift hover:border-primary/30 transition-colors text-center"
-          >
-            <div className="mx-auto h-16 w-16 rounded-2xl bg-gradient-brand-soft border border-primary/30 flex items-center justify-center mb-5 relative">
-              <s.icon className="h-7 w-7 text-primary" />
-              <span className="absolute -top-2 -right-2 h-7 w-7 rounded-full bg-gradient-brand text-background text-xs font-bold flex items-center justify-center">
-                {i + 1}
-              </span>
-            </div>
-            <h3 className="text-xl font-bold">{s.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
-          </motion.div>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-/* ---------- FEATURES ---------- */
-function Features() {
-  const features = [
-    { icon: Zap, title: "Instant Payments", desc: "Receive SOL seconds after task completion. No waiting weeks for payment." },
-    { icon: WalletIcon, title: "Low Fees", desc: "Only 2% platform fee — we keep microtasks truly micro." },
-    { icon: Globe, title: "Global Access", desc: "Anyone with internet and a Solana wallet can work, anywhere." },
-    { icon: Target, title: "No Minimum Payout", desc: "Withdraw any amount, anytime. Even $0.10 — your money, your rules." },
-  ];
-  return (
-    <Section
-      eyebrow="Why McKWork"
-      title={<>Built for <span className="text-gradient-brand">real workers</span></>}
-      subtitle="Everything you need to start earning crypto, without the friction."
-    >
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {features.map((f, i) => (
           <motion.div
             key={i}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.1 }}
-            className="glass rounded-2xl p-6 hover-lift hover:border-primary/30 group transition-all"
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: i * 0.12 }}
+            className="bg-background p-10 md:p-12"
           >
-            <div className="h-12 w-12 rounded-xl bg-gradient-brand-soft flex items-center justify-center mb-4 group-hover:glow-green transition-all">
-              <f.icon className="h-6 w-6 text-primary" />
+            <div className="flex items-start justify-between">
+              <span className="serif text-4xl text-gold/40">{s.n}</span>
+              <s.icon className="h-5 w-5 text-gold" strokeWidth={1.5} />
             </div>
-            <h3 className="font-bold text-lg">{f.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+            <h3 className="serif text-2xl mt-10">{s.title}</h3>
+            <p className="text-silver mt-4 leading-relaxed text-[15px]">{s.desc}</p>
           </motion.div>
         ))}
       </div>
@@ -299,33 +201,29 @@ function Features() {
 /* ---------- CATEGORIES ---------- */
 function Categories() {
   const cats = [
-    { icon: Bot, name: "AI Training", count: 2340, color: "from-primary/20 to-primary/5" },
-    { icon: ImageIcon, name: "Image Labeling", count: 1892, color: "from-secondary/20 to-secondary/5" },
-    { icon: FileText, name: "Surveys", count: 543, color: "from-info/20 to-info/5" },
-    { icon: Mic, name: "Transcription", count: 321, color: "from-warning/20 to-warning/5" },
-    { icon: ShieldAlert, name: "Content Moderation", count: 156, color: "from-destructive/20 to-destructive/5" },
-    { icon: CheckCircle2, name: "Data Validation", count: 892, color: "from-success/20 to-success/5" },
+    { icon: Bot, name: "AI Training", count: 2340 },
+    { icon: ImageIcon, name: "Image Labeling", count: 1892 },
+    { icon: FileText, name: "Surveys", count: 543 },
+    { icon: Mic, name: "Transcription", count: 321 },
+    { icon: ShieldAlert, name: "Moderation", count: 156 },
+    { icon: CheckCircle2, name: "Validation", count: 892 },
   ];
   return (
-    <Section
-      eyebrow="Task Categories"
-      title={<>Pick what you <span className="text-gradient-brand">love doing</span></>}
-      subtitle="From AI training to surveys — there's something for everyone."
-    >
-      <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 md:grid md:grid-cols-3 lg:grid-cols-6 md:overflow-visible scrollbar-hide">
+    <Section eyebrow="Departments" title="A discipline for every contributor">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
         {cats.map((c, i) => (
           <motion.button
             key={c.name}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.05 }}
-            className={`min-w-[180px] md:min-w-0 glass rounded-2xl p-5 text-left hover-lift hover:border-primary/40 hover:glow-green transition-all bg-gradient-to-br ${c.color}`}
+            className="group card-classic rounded-md p-6 text-left hover-lift"
           >
-            <c.icon className="h-7 w-7 text-foreground mb-3" />
-            <div className="font-semibold text-sm">{c.name}</div>
-            <div className="text-xs text-muted-foreground mt-1 tabular-nums">
-              {c.count.toLocaleString()} tasks
+            <c.icon className="h-5 w-5 text-gold" strokeWidth={1.5} />
+            <div className="serif text-lg mt-6 leading-tight">{c.name}</div>
+            <div className="text-xs text-silver mt-2 tabular-nums">
+              {c.count.toLocaleString()} open
             </div>
           </motion.button>
         ))}
@@ -337,173 +235,102 @@ function Categories() {
 /* ---------- TESTIMONIALS ---------- */
 function Testimonials() {
   const items = [
-    {
-      quote: "I earned my first $50 in just 3 days labeling images. McKWork changed my life.",
-      name: "Ahmad",
-      country: "Indonesia 🇮🇩",
-      earned: "$50",
-      initials: "AH",
-    },
-    {
-      quote: "Perfect for students like me. I earn $10–15 daily between classes.",
-      name: "Maria",
-      country: "Philippines 🇵🇭",
-      earned: "$320",
-      initials: "MA",
-    },
-    {
-      quote: "Finally a microtask platform that pays instantly in crypto!",
-      name: "John",
-      country: "Nigeria 🇳🇬",
-      earned: "$127",
-      initials: "JO",
-    },
+    { quote: "I earned my first $50 in three days labelling images. McKWork has changed my life.", name: "Ahmad", country: "Indonesia", earned: "$50" },
+    { quote: "Perfect between classes. I earn ten to fifteen dollars daily, on my own schedule.", name: "Maria", country: "Philippines", earned: "$320" },
+    { quote: "Finally — a microtask platform that pays instantly, in crypto, with grace.", name: "John", country: "Nigeria", earned: "$127" },
   ];
   return (
-    <Section
-      eyebrow="Success Stories"
-      title={<>Real workers, <span className="text-gradient-brand">real earnings</span></>}
-      subtitle="Stories from our global community of earners."
-    >
-      <div className="grid md:grid-cols-3 gap-5">
+    <Section eyebrow="Correspondence" title="From the global community">
+      <div className="grid md:grid-cols-3 gap-px bg-[rgba(197,165,63,0.15)] border border-[rgba(197,165,63,0.15)] rounded-md overflow-hidden">
         {items.map((t, i) => (
-          <motion.div
+          <motion.figure
             key={i}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.12 }}
-            className="glass rounded-2xl p-6 hover-lift relative overflow-hidden"
+            transition={{ duration: 0.5, delay: i * 0.1 }}
+            className="bg-background p-10 md:p-12"
           >
-            <div className="absolute -top-6 -right-6 text-8xl text-primary/10 font-serif select-none">"</div>
-            <p className="relative text-foreground/90 leading-relaxed">{t.quote}</p>
-            <div className="mt-6 flex items-center gap-3">
-              <Avatar className="h-11 w-11 border border-primary/30">
-                <AvatarFallback className="bg-gradient-brand text-background font-bold">
-                  {t.initials}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex-1">
-                <div className="font-semibold text-sm">{t.name}</div>
-                <div className="text-xs text-muted-foreground">{t.country}</div>
+            <span className="serif text-6xl text-gold/40 leading-none block">“</span>
+            <blockquote className="accent-italic text-xl text-foreground/90 leading-snug -mt-2">
+              {t.quote}
+            </blockquote>
+            <div className="divider-gold my-8" />
+            <figcaption className="flex items-center justify-between">
+              <div>
+                <div className="serif text-lg">{t.name}</div>
+                <div className="label-classic mt-1">{t.country}</div>
               </div>
-              <Badge className="bg-primary/15 text-primary border border-primary/30 rounded-full">
-                {t.earned} earned
-              </Badge>
-            </div>
-          </motion.div>
+              <div className="text-right">
+                <div className="serif text-2xl text-gold tabular-nums">{t.earned}</div>
+                <div className="label-classic mt-1">earned</div>
+              </div>
+            </figcaption>
+          </motion.figure>
         ))}
       </div>
     </Section>
   );
 }
 
-/* ---------- LEADERBOARD ---------- */
-function Leaderboard() {
+/* ---------- THE REGISTER (top earners) ---------- */
+function Register() {
   const top = [
-    { rank: 1, addr: "8x7K...3pL9", sol: "12.84", verified: true },
-    { rank: 2, addr: "Bn4P...vQ2x", sol: "10.12", verified: true },
-    { rank: 3, addr: "Cz9M...kR8w", sol: "8.47", verified: true },
+    { rank: "01", addr: "8x7K…3pL9", sol: "12.84" },
+    { rank: "02", addr: "Bn4P…vQ2x", sol: "10.12" },
+    { rank: "03", addr: "Cz9M…kR8w", sol: "8.47" },
+    { rank: "04", addr: "Df2H…mY1q", sol: "7.20" },
+    { rank: "05", addr: "Eg6L…nT4r", sol: "6.55" },
   ];
-  const medals = ["🥇", "🥈", "🥉"];
   return (
-    <section className="mx-auto max-w-7xl px-4 md:px-6 py-12">
-      <div className="glass rounded-3xl p-6 md:p-10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-radial-brand opacity-50 pointer-events-none" />
-        <div className="relative grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <Badge className="glass border-primary/30 text-primary rounded-full">
-              <Trophy className="h-3 w-3 mr-1.5" /> Top Earners
-            </Badge>
-            <h2 className="mt-4 text-3xl md:text-4xl font-bold">
-              This week's <span className="text-gradient-brand">top earners</span>
-            </h2>
-            <p className="mt-3 text-muted-foreground">
-              Rise the ranks. Earn badges. Get featured. The more you work, the more you earn.
-            </p>
-            <Button className="mt-6 bg-gradient-brand text-background font-semibold rounded-xl">
-              View Full Leaderboard
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-          <div className="space-y-3">
-            {top.map((t, i) => (
-              <motion.div
-                key={t.rank}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="glass-strong rounded-2xl p-4 flex items-center gap-4 hover:border-primary/40 transition-colors"
-              >
-                <div className="text-2xl w-8 text-center">{medals[i]}</div>
-                <Avatar className="h-10 w-10">
-                  <AvatarFallback className="bg-elevated text-primary text-xs font-bold">
-                    {t.addr.slice(0, 2)}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1 min-w-0">
-                  <div className="font-mono text-sm flex items-center gap-1.5">
-                    {t.addr}
-                    {t.verified && <ShieldCheck className="h-3.5 w-3.5 text-primary" />}
-                  </div>
-                  <div className="text-xs text-muted-foreground">Rank #{t.rank}</div>
-                </div>
-                <div className="text-right">
-                  <div className="font-bold text-primary tabular-nums">{t.sol} ◎</div>
-                  <div className="text-xs text-muted-foreground">SOL</div>
-                </div>
-              </motion.div>
+    <Section eyebrow="The Register" title="This week's most accomplished">
+      <div className="card-classic rounded-md overflow-hidden">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-[rgba(197,165,63,0.2)]">
+              <th className="text-left label-classic py-5 px-6 w-24">Rank</th>
+              <th className="text-left label-classic py-5 px-6">Wallet</th>
+              <th className="text-right label-classic py-5 px-6">Earnings</th>
+            </tr>
+          </thead>
+          <tbody>
+            {top.map((t) => (
+              <tr key={t.rank} className="border-b border-[rgba(197,165,63,0.08)] last:border-0 hover:bg-[rgba(197,165,63,0.04)] transition-colors">
+                <td className="py-5 px-6 serif text-gold text-lg">{t.rank}</td>
+                <td className="py-5 px-6 font-mono text-foreground/90">{t.addr}</td>
+                <td className="py-5 px-6 text-right serif text-gold tabular-nums">{t.sol} ◎</td>
+              </tr>
             ))}
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
-    </section>
+    </Section>
   );
 }
 
 /* ---------- FAQ ---------- */
 function FAQ() {
   const faqs = [
-    {
-      q: "How do I get paid?",
-      a: "Instantly to your Solana wallet after your task is verified. Most payments arrive in 2–5 minutes.",
-    },
-    {
-      q: "What kind of tasks can I do?",
-      a: "AI training, image labeling, surveys, transcription, content moderation, and data validation. New categories added regularly.",
-    },
-    {
-      q: "Do I need experience?",
-      a: "No. Every task includes clear step-by-step instructions and examples. If you can use a smartphone, you can earn.",
-    },
-    {
-      q: "How are tasks verified?",
-      a: "We use a consensus method (3 workers agree) or AI validation. This keeps quality high and ensures fair payments.",
-    },
-    {
-      q: "What does it cost to use McKWork?",
-      a: "Nothing for workers. Clients pay a 2% platform fee on tasks they post.",
-    },
+    { q: "How do I get paid?", a: "Instantly to your Solana wallet upon verification. Most payments arrive within two to five minutes." },
+    { q: "What kind of tasks can I do?", a: "AI training, image labelling, surveys, transcription, moderation and data validation. New disciplines are added weekly." },
+    { q: "Do I need experience?", a: "No. Each task is accompanied by clear instructions and worked examples. If you can use a smartphone with care, you can earn." },
+    { q: "How are tasks verified?", a: "Through consensus — three independent workers — or AI validation. This preserves quality and ensures fair payment." },
+    { q: "What does it cost to use McKWork?", a: "Nothing for workers. Clients are charged a two percent platform fee on tasks they publish." },
   ];
   return (
-    <Section
-      eyebrow="FAQ"
-      title={<>Questions? <span className="text-gradient-brand">We've got answers</span></>}
-      subtitle="Everything you need to know before you start."
-    >
+    <Section eyebrow="Enquiries" title="Questions, answered">
       <div className="max-w-3xl mx-auto">
-        <Accordion type="single" collapsible className="space-y-3">
+        <Accordion type="single" collapsible className="space-y-px bg-[rgba(197,165,63,0.15)] border border-[rgba(197,165,63,0.15)] rounded-md overflow-hidden">
           {faqs.map((f, i) => (
             <AccordionItem
               key={i}
               value={`item-${i}`}
-              className="glass rounded-2xl px-5 border-border data-[state=open]:border-primary/30 data-[state=open]:glow-green"
+              className="bg-background border-0 px-6 md:px-8"
             >
-              <AccordionTrigger className="text-left font-semibold hover:no-underline py-5">
+              <AccordionTrigger className="serif text-lg text-left hover:no-underline py-6">
                 {f.q}
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-5">
+              <AccordionContent className="text-silver pb-6 leading-relaxed text-[15px]">
                 {f.a}
               </AccordionContent>
             </AccordionItem>
@@ -517,28 +344,19 @@ function FAQ() {
 /* ---------- FINAL CTA ---------- */
 function FinalCTA() {
   return (
-    <section className="mx-auto max-w-7xl px-4 md:px-6 py-16">
-      <div className="relative overflow-hidden rounded-3xl glass-strong p-10 md:p-16 text-center">
-        <div className="absolute inset-0 bg-radial-brand opacity-80 pointer-events-none" />
-        <div className="absolute inset-0 grid-pattern opacity-30 pointer-events-none" />
-        <div className="relative">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-            Ready to <span className="text-gradient-brand">start earning?</span>
-          </h2>
-          <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-            Join McKWork today and turn your spare time into crypto. Every task brings you closer to your goal.
-          </p>
-          <Button
-            size="lg"
-            className="mt-8 h-14 px-10 rounded-xl bg-gradient-brand text-background font-semibold text-base hover:glow-green-strong"
-          >
-            <Wallet className="h-5 w-5 mr-2" />
-            Create Free Account
-          </Button>
-          <p className="mt-4 text-xs text-muted-foreground">
-            No email required. Just connect your Solana wallet.
-          </p>
-        </div>
+    <section className="mx-auto max-w-[1280px] px-6 md:px-10 py-24">
+      <div className="card-classic rounded-md p-12 md:p-20 text-center border-t-2 border-t-[oklch(0.74_0.13_88)]">
+        <p className="label-classic text-gold">An invitation</p>
+        <h2 className="serif text-4xl md:text-5xl mt-6 max-w-2xl mx-auto leading-tight">
+          Ready to begin earning, <span className="accent-italic text-gold">on your terms?</span>
+        </h2>
+        <p className="text-silver mt-6 max-w-lg mx-auto">
+          Join McKWork today. No email required — only a Solana wallet, and the willingness to do good work.
+        </p>
+        <button className="btn-gold rounded-full px-10 py-4 mt-10 text-xs uppercase tracking-[0.14em] font-medium inline-flex items-center gap-2">
+          <Wallet className="h-4 w-4" /> Connect wallet
+        </button>
+        <p className="text-xs text-silver/70 mt-5">Trusted by 10,000+ workers in 180 countries.</p>
       </div>
     </section>
   );
@@ -548,20 +366,20 @@ function FinalCTA() {
 function Section({
   eyebrow,
   title,
-  subtitle,
   children,
 }: {
   eyebrow: string;
   title: React.ReactNode;
-  subtitle?: string;
   children: React.ReactNode;
 }) {
   return (
-    <section className="mx-auto max-w-7xl px-4 md:px-6 py-16 md:py-24">
-      <div className="text-center max-w-2xl mx-auto mb-12">
-        <Badge className="glass border-primary/30 text-primary rounded-full">{eyebrow}</Badge>
-        <h2 className="mt-4 text-3xl md:text-5xl font-bold tracking-tight">{title}</h2>
-        {subtitle && <p className="mt-4 text-muted-foreground">{subtitle}</p>}
+    <section className="mx-auto max-w-[1280px] px-6 md:px-10 py-20 md:py-28">
+      <div className="flex items-end justify-between mb-12 md:mb-16 flex-wrap gap-6">
+        <div className="max-w-2xl">
+          <p className="label-classic text-gold">{eyebrow}</p>
+          <h2 className="serif text-4xl md:text-5xl mt-4 leading-tight">{title}</h2>
+        </div>
+        <div className="h-px flex-1 min-w-[80px] bg-[rgba(197,165,63,0.2)] mb-3 hidden md:block" />
       </div>
       {children}
     </section>
