@@ -5,51 +5,63 @@ import { Footer } from "@/components/site/Footer";
 export const Route = createFileRoute("/leaderboard")({
   head: () => ({
     meta: [
-      { title: "Leaderboard — McKWork" },
-      { name: "description", content: "This week's most accomplished workers on McKWork." },
+      { title: "The Register — McKWork Guild" },
+      { name: "description", content: "This week's top adventurers, ranked by gold." },
     ],
   }),
-  component: LeaderboardPage,
+  component: RegisterPage,
 });
 
-function LeaderboardPage() {
-  const rows = Array.from({ length: 12 }).map((_, i) => ({
-    rank: i + 1,
+function RegisterPage() {
+  const rows = Array.from({ length: 14 }).map((_, i) => ({
+    rank: String(i + 1).padStart(2, "0"),
     addr: `${(Math.random().toString(36) + "00000").slice(2, 6)}…${(Math.random().toString(36) + "00000").slice(2, 6)}`,
     sol: (15 - i * 0.7 + Math.random() * 0.4).toFixed(2),
-    tasks: 420 - i * 18,
+    quests: 420 - i * 18,
+    lvl: 25 - i,
   }));
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen text-parchment">
       <Navbar />
-      <main className="mx-auto max-w-[1280px] px-6 md:px-10 py-20">
-        <p className="label-classic text-gold">The Register</p>
-        <h1 className="serif text-5xl mt-4">This week's earners</h1>
-        <p className="accent-italic mt-4 text-xl text-silver max-w-2xl">
-          A weekly ledger of the most diligent contributors across the platform.
+      <main className="mx-auto max-w-[1280px] px-4 md:px-8 pt-12 pb-20">
+        <div className="quest-rule mb-6"><span>The Register</span></div>
+        <h1 className="font-mono text-bronze text-5xl uppercase leading-tight" style={{ textShadow: "2px 2px 0 #000" }}>
+          High Score · This Week
+        </h1>
+        <p className="accent-italic mt-4 text-xl text-parchment max-w-2xl">
+          A weekly ledger of the most diligent adventurers across the realm.
         </p>
 
-        <div className="card-classic rounded-md mt-12 overflow-hidden">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-[rgba(197,165,63,0.2)]">
-                <th className="text-left label-classic py-5 px-6">Rank</th>
-                <th className="text-left label-classic py-5 px-6">Wallet</th>
-                <th className="text-right label-classic py-5 px-6">Tasks</th>
-                <th className="text-right label-classic py-5 px-6">Earnings</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r) => (
-                <tr key={r.rank} className="border-b border-[rgba(197,165,63,0.08)] last:border-0 hover:bg-[rgba(197,165,63,0.04)] transition-colors">
-                  <td className="py-5 px-6 serif text-gold text-lg w-24">{String(r.rank).padStart(2, "0")}</td>
-                  <td className="py-5 px-6 font-mono text-foreground/90">{r.addr}</td>
-                  <td className="py-5 px-6 text-right text-silver tabular-nums">{r.tasks}</td>
-                  <td className="py-5 px-6 text-right serif text-gold tabular-nums">{r.sol} ◎</td>
+        <div className="pixel-frame mt-12 overflow-hidden">
+          <div className="font-mono text-bronze text-base tracking-[0.2em] px-6 py-4" style={{ borderBottom: "1px solid rgba(201,168,124,0.4)" }}>
+            ━━━━ TOP OF THE REGISTER ━━━━
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full font-mono min-w-[640px]">
+              <thead>
+                <tr style={{ borderBottom: "1px solid rgba(201,168,124,0.3)" }}>
+                  <th className="text-left label-pixel py-4 px-6 w-24">Rank</th>
+                  <th className="text-left label-pixel py-4 px-6">Wallet</th>
+                  <th className="text-right label-pixel py-4 px-6">Level</th>
+                  <th className="text-right label-pixel py-4 px-6">Quests</th>
+                  <th className="text-right label-pixel py-4 px-6">Gold</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {rows.map((r) => (
+                  <tr key={r.rank} className="hover:bg-bronze/5 transition-colors" style={{ borderBottom: "1px solid rgba(201,168,124,0.1)" }}>
+                    <td className="py-4 px-6 text-bronze text-xl" style={{ textShadow: "1px 1px 0 #000" }}>{r.rank}</td>
+                    <td className="py-4 px-6 text-parchment text-base">{r.addr}</td>
+                    <td className="py-4 px-6 text-right text-bronze-dim text-sm tracking-wider">LV {r.lvl}</td>
+                    <td className="py-4 px-6 text-right text-parchment text-base tabular-nums">{r.quests}</td>
+                    <td className="py-4 px-6 text-right text-bronze text-xl tabular-nums" style={{ textShadow: "1px 1px 0 #000" }}>
+                      ⛁ {r.sol}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </main>
       <Footer />

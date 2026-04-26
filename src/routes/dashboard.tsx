@@ -1,189 +1,181 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
+import { Copy } from "lucide-react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
-import { Copy, ArrowUpRight } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Worker Dashboard — McKWork" },
-      { name: "description", content: "Your earnings, performance and recent activity at a glance." },
+      { title: "Adventurer's Stats — McKWork Guild" },
+      { name: "description", content: "Your level, treasure, performance and recent quests." },
     ],
   }),
-  component: DashboardPage,
+  component: AdventurerStats,
 });
 
-const recent = [
-  { task: "Identify objects in urban photographs", category: "Image Labeling", reward: "0.05", date: "Today, 14:22", status: "Verified" },
-  { task: "Rate the quality of model responses", category: "AI Training", reward: "0.12", date: "Today, 13:08", status: "Pending" },
-  { task: "Consumer behaviour study, EU region", category: "Surveys", reward: "0.08", date: "Yesterday", status: "Completed" },
-  { task: "Transcribe a 90-second audio clip", category: "Transcription", reward: "0.18", date: "Yesterday", status: "Verified" },
-  { task: "Verify business addresses, 12 cities", category: "Validation", reward: "0.14", date: "23 Apr", status: "Verified" },
-  { task: "Classify product photographs", category: "Image Labeling", reward: "0.04", date: "23 Apr", status: "Completed" },
+const inventory = [
+  { sigil: "▣", title: "Identify cars in 5 photos", reward: "0.05", state: "Verified" },
+  { sigil: "⌬", title: "Rate AI responses", reward: "0.12", state: "Pending" },
+  { sigil: "✎", title: "EU consumer survey", reward: "0.08", state: "Cleared" },
+  { sigil: "♪", title: "Transcribe podcast clip", reward: "0.18", state: "Verified" },
+  { sigil: "✓", title: "Verify addresses ×12", reward: "0.14", state: "Verified" },
+  { sigil: "▣", title: "Classify product photos", reward: "0.04", state: "Cleared" },
+  { sigil: "⚑", title: "Forum moderation pass", reward: "0.06", state: "Verified" },
+  { sigil: "⌬", title: "Annotate medical scan", reward: "0.32", state: "Pending" },
+  { sigil: "✎", title: "Habits long-form study", reward: "0.22", state: "Cleared" },
 ];
 
-const statusDot: Record<string, string> = {
-  Verified: "bg-[oklch(0.55_0.07_175)]",
-  Pending: "bg-[oklch(0.6_0.13_78)]",
-  Completed: "bg-[oklch(0.55_0.06_245)]",
+const stateColor: Record<string, string> = {
+  Verified: "text-forest",
+  Pending: "text-bronze",
+  Cleared: "text-teal-faded",
 };
 
-function DashboardPage() {
+function AdventurerStats() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen text-parchment">
       <Navbar />
 
-      <main className="mx-auto max-w-[1280px] px-6 md:px-10 pt-16 pb-24">
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <p className="label-classic text-gold">The Ledger</p>
-            <h1 className="serif text-5xl mt-4">Welcome back, <span className="font-mono text-3xl text-gold">8x7K…3pL9</span></h1>
-            <p className="accent-italic mt-4 text-xl text-silver">A seven-day streak. Member since March 2026.</p>
-          </div>
-          <button className="btn-gold rounded-full px-6 py-3 text-xs uppercase tracking-[0.12em] font-medium self-start md:self-auto">
-            Withdraw earnings
-          </button>
-        </div>
+      <main className="mx-auto max-w-[1280px] px-4 md:px-8 pt-12 pb-20">
+        <div className="quest-rule mb-6"><span>Adventurer's Status</span></div>
 
-        <div className="divider-gold my-12" />
-
-        {/* KPI cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Kpi label="Total earned" value="12.50" unit="SOL" sub="≈ $312.50 USD" />
-          <Kpi label="Available balance" value="3.20" unit="SOL" sub="Ready to withdraw" highlight />
-          <Kpi label="Pending verification" value="0.80" unit="SOL" sub="3 tasks in review" />
-        </div>
-
-        {/* Performance + Withdraw */}
-        <div className="grid lg:grid-cols-3 gap-6 mt-6">
-          <div className="card-classic rounded-md p-8 lg:col-span-2">
-            <p className="label-classic text-gold">Performance</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-8">
-              <Metric value="94%" label="Accuracy" />
-              <Metric value="47" label="This week" />
-              <Metric value="342" label="Lifetime" />
-              <Metric value="2.3 min" label="Response avg." />
-            </div>
-            <div className="divider-gold my-8" />
-            <p className="label-classic text-gold mb-4">Approval rate</p>
+        {/* Top: Avatar + Stats */}
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Character card */}
+          <div className="pixel-frame p-8 trim-top">
             <div className="flex items-center gap-5">
-              <div className="serif text-5xl text-gold tabular-nums">98%</div>
-              <div className="flex-1 h-1 bg-surface rounded-full overflow-hidden">
-                <div className="h-full bg-[oklch(0.74_0.13_88)]" style={{ width: "98%" }} />
+              <PixelAvatar />
+              <div>
+                <div className="label-pixel text-bronze-dim">Wallet</div>
+                <div className="font-mono text-2xl text-parchment mt-1">8x7K…3pL9</div>
+                <div className="font-mono text-bronze mt-2">⚜ LV 23 · ARTISAN</div>
               </div>
+            </div>
+            <div className="quest-rule my-6" />
+            <div className="space-y-4">
+              <StatRow label="HP · Accuracy" pct={94} value="94%" color="#1A3B32" tone="bg-forest" textColor="text-forest" />
+              <StatRow label="MP · Quests Today" pct={42} value="42 / 100" color="#4A6B6D" textColor="text-teal-faded" />
+              <StatRow label="EXP · To Level 24" pct={68} value="6,800 / 10,000" color="#6B4E71" textColor="text-amethyst" />
             </div>
           </div>
 
-          <div className="card-classic rounded-md p-8">
-            <p className="label-classic text-gold">Withdraw</p>
-            <div className="mt-6">
-              <label className="label-classic block mb-3">Amount · SOL</label>
-              <div className="relative">
-                <input
-                  defaultValue="3.20"
-                  className="w-full bg-surface border border-[rgba(74,112,139,0.4)] rounded-full px-5 py-3 text-sm focus:outline-none focus:border-[oklch(0.74_0.13_88)] pr-16"
-                />
-                <button className="absolute right-1.5 top-1/2 -translate-y-1/2 text-[10px] uppercase tracking-[0.12em] text-gold border border-[rgba(197,165,63,0.4)] rounded-full px-3 py-1.5">
-                  Max
-                </button>
+          {/* Treasure */}
+          <div className="lg:col-span-2 grid sm:grid-cols-3 gap-6">
+            <Kpi label="Total Gold" value="125.5" unit="SOL" sub="≈ $312.50 USD" />
+            <Kpi label="Treasury" value="3.20" unit="SOL" sub="Ready to withdraw" highlight />
+            <Kpi label="In Escrow" value="0.80" unit="SOL" sub="3 quests pending" />
+
+            <div className="sm:col-span-3 pixel-frame p-7 trim-top">
+              <div className="quest-rule mb-5"><span>Treasury · Withdraw</span></div>
+              <div className="grid md:grid-cols-3 gap-5">
+                <Field label="Amount ⛁ SOL" value="3.20" suffix="MAX" />
+                <Field label="Destination" value="8x7K…3pL9" mono />
+                <div className="flex flex-col">
+                  <span className="label-pixel mb-3">Network Fee</span>
+                  <span className="font-mono text-base text-parchment py-3">≈ 0.000005 ⛁</span>
+                </div>
               </div>
-              <label className="label-classic block mt-5 mb-3">Destination</label>
-              <input
-                defaultValue="8x7K…3pL9"
-                className="w-full bg-surface border border-[rgba(74,112,139,0.4)] rounded-full px-5 py-3 text-sm font-mono focus:outline-none focus:border-[oklch(0.74_0.13_88)]"
-              />
-              <p className="text-xs text-silver mt-4">Network fee · ≈ 0.000005 SOL</p>
-              <button className="btn-gold rounded-full w-full py-3 mt-5 text-xs uppercase tracking-[0.12em] font-medium">
-                Withdraw now
-              </button>
+              <button className="btn-pixel-solid mt-6 w-full md:w-auto">⟧ Withdraw Now ⟦</button>
             </div>
           </div>
         </div>
 
-        {/* Recent earnings */}
-        <div className="mt-12">
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="label-classic text-gold">Recent earnings</p>
-              <h2 className="serif text-3xl mt-2">Your most recent contributions</h2>
-            </div>
-            <a href="#" className="label-classic text-silver hover:text-gold inline-flex items-center gap-1">
-              View all <ArrowUpRight className="h-3 w-3" />
-            </a>
+        {/* Performance metrics */}
+        <div className="quest-rule mt-14 mb-6"><span>Performance Codex</span></div>
+        <div className="pixel-frame p-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <Metric value="94%" label="Accuracy" />
+            <Metric value="47" label="This Week" />
+            <Metric value="342" label="Lifetime Quests" />
+            <Metric value="2.3 m" label="Response Avg." />
           </div>
+        </div>
 
-          <div className="card-classic rounded-md mt-6 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm min-w-[640px]">
-                <thead>
-                  <tr className="border-b border-[rgba(197,165,63,0.2)]">
-                    <th className="text-left label-classic py-5 px-6">Task</th>
-                    <th className="text-left label-classic py-5 px-6">Category</th>
-                    <th className="text-right label-classic py-5 px-6">Reward</th>
-                    <th className="text-left label-classic py-5 px-6">Date</th>
-                    <th className="text-left label-classic py-5 px-6">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recent.map((r, i) => (
-                    <motion.tr
-                      key={i}
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.04 }}
-                      className="border-b border-[rgba(197,165,63,0.08)] last:border-0 hover:bg-[rgba(197,165,63,0.04)] transition-colors"
-                    >
-                      <td className="py-5 px-6 text-foreground/90">{r.task}</td>
-                      <td className="py-5 px-6 text-silver">{r.category}</td>
-                      <td className="py-5 px-6 text-right serif text-gold tabular-nums">{r.reward} ◎</td>
-                      <td className="py-5 px-6 text-silver">{r.date}</td>
-                      <td className="py-5 px-6">
-                        <span className="inline-flex items-center gap-2 text-xs text-foreground/80">
-                          <span className={`h-1.5 w-1.5 rounded-full ${statusDot[r.status]}`} />
-                          {r.status}
-                        </span>
-                      </td>
-                    </motion.tr>
-                  ))}
-                </tbody>
-              </table>
+        {/* Inventory grid */}
+        <div className="quest-rule mt-14 mb-6"><span>Inventory · Recent Quests</span></div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {inventory.map((it, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.04 }}
+              className="pixel-frame-soft p-5"
+              style={{ boxShadow: "2px 2px 0 #000" }}
+            >
+              <div className="flex items-start justify-between">
+                <span className="font-mono text-3xl text-bronze" style={{ textShadow: "1px 1px 0 #000" }}>
+                  {it.sigil}
+                </span>
+                <span className={`label-pixel ${stateColor[it.state]}`}>● {it.state}</span>
+              </div>
+              <div className="font-mono text-sm text-parchment mt-4 tracking-wide leading-snug uppercase">
+                {it.title}
+              </div>
+              <div className="font-mono text-lg text-bronze mt-3 tabular-nums">⛁ {it.reward}</div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Achievements */}
+        <div className="quest-rule mt-14 mb-6"><span>Medals & Honours</span></div>
+        <div className="flex gap-4 overflow-x-auto pb-2">
+          {[
+            { sigil: "✦", name: "Verified", lock: false, color: "text-bronze" },
+            { sigil: "⚡", name: "Swift Hand", lock: false, color: "text-teal-faded" },
+            { sigil: "◆", name: "Perfect 100", lock: false, color: "text-forest" },
+            { sigil: "♚", name: "Centurion", lock: false, color: "text-amethyst" },
+            { sigil: "?", name: "???", lock: true, color: "text-bronze-dim" },
+            { sigil: "?", name: "???", lock: true, color: "text-bronze-dim" },
+          ].map((a, i) => (
+            <div
+              key={i}
+              className="pixel-frame-soft p-5 min-w-[140px] text-center flex-shrink-0"
+              style={{ boxShadow: "2px 2px 0 #000", opacity: a.lock ? 0.5 : 1 }}
+            >
+              <div className={`font-mono text-4xl ${a.color}`} style={{ textShadow: "1px 1px 0 #000" }}>
+                {a.sigil}
+              </div>
+              <div className="label-pixel mt-3">{a.name}</div>
             </div>
-          </div>
+          ))}
         </div>
 
         {/* Referral */}
-        <div className="card-classic rounded-md p-8 md:p-10 mt-12 grid md:grid-cols-2 gap-8 items-center">
+        <div className="quest-rule mt-14 mb-6"><span>Recruit a Companion</span></div>
+        <div className="pixel-frame p-8 grid md:grid-cols-2 gap-8 items-center trim-top">
           <div>
-            <p className="label-classic text-gold">Referral programme</p>
-            <h2 className="serif text-3xl mt-2">Invite a friend, earn 5%</h2>
-            <p className="accent-italic text-lg text-silver mt-3">
-              Receive five percent of their earnings for thirty days.
+            <h3 className="font-mono text-bronze text-2xl uppercase" style={{ textShadow: "1px 1px 0 #000" }}>
+              Invite, Earn 5%
+            </h3>
+            <p className="accent-italic text-lg text-parchment mt-3">
+              Receive five percent of their gold for thirty days.
             </p>
+            <div className="flex gap-10 mt-6">
+              <div>
+                <div className="label-pixel text-bronze-dim">Earned</div>
+                <div className="font-mono text-3xl text-bronze tabular-nums mt-1">⛁ 1.20</div>
+              </div>
+              <div>
+                <div className="label-pixel text-bronze-dim">Companions</div>
+                <div className="font-mono text-3xl text-bronze tabular-nums mt-1">12</div>
+              </div>
+            </div>
           </div>
           <div>
-            <label className="label-classic block mb-3">Your link</label>
+            <label className="label-pixel block mb-3">Your Scroll</label>
             <div className="flex gap-3">
               <input
                 readOnly
                 value="https://mckwork.xyz/r/abc123"
-                className="flex-1 bg-surface border border-[rgba(74,112,139,0.4)] rounded-full px-5 py-3 text-sm font-mono"
+                className="flex-1 bg-black/40 px-4 py-3 font-mono text-sm text-parchment focus:outline-none"
+                style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
               />
-              <button className="btn-gold-outline rounded-full px-4 py-3 inline-flex items-center gap-2 text-xs uppercase tracking-[0.12em]">
+              <button className="btn-pixel !text-sm !py-2 !px-4">
                 <Copy className="h-3.5 w-3.5" /> Copy
               </button>
-            </div>
-            <div className="flex gap-10 mt-6">
-              <div>
-                <div className="serif text-3xl text-gold tabular-nums">1.20</div>
-                <p className="label-classic mt-1">SOL earned</p>
-              </div>
-              <div>
-                <div className="serif text-3xl text-gold tabular-nums">12</div>
-                <p className="label-classic mt-1">Friends invited</p>
-              </div>
             </div>
           </div>
         </div>
@@ -194,15 +186,58 @@ function DashboardPage() {
   );
 }
 
+function StatRow({ label, value, pct, textColor, tone }: { label: string; value: string; pct: number; color: string; textColor: string; tone?: string }) {
+  return (
+    <div>
+      <div className="flex items-baseline justify-between">
+        <span className="label-pixel">{label}</span>
+        <span className={`font-mono text-base ${textColor} tabular-nums`}>{value}</span>
+      </div>
+      <div className="stat-bar mt-2">
+        <span className={tone ?? ""} style={{ width: `${pct}%`, color: tone ? undefined : "currentColor", background: tone ? undefined : `var(--bronze)` }} />
+      </div>
+    </div>
+  );
+}
+
+function PixelAvatar() {
+  // Simple pixel "head & cape" mark
+  const grid = [
+    "..bbbb..",
+    ".bggggb.",
+    ".bgwgwg.",
+    ".bggggb.",
+    "..bbbb..",
+    ".aaaaaa.",
+    "aaaaaaaa",
+    "a.a..a.a",
+  ];
+  const px = 8;
+  return (
+    <svg width={64} height={64} viewBox="0 0 64 64" shapeRendering="crispEdges" className="flex-shrink-0" style={{ boxShadow: "2px 2px 0 #000", border: "1px solid var(--bronze)", background: "#000" }}>
+      {grid.map((row, y) =>
+        row.split("").map((c, x) => {
+          if (c === ".") return null;
+          const fill = c === "g" ? "#C9A87C" : c === "b" ? "#2B1015" : c === "w" ? "#0D0D0D" : "#6B4E71";
+          return <rect key={`${x}-${y}`} x={x * px} y={y * px} width={px} height={px} fill={fill} />;
+        }),
+      )}
+    </svg>
+  );
+}
+
 function Kpi({ label, value, unit, sub, highlight }: { label: string; value: string; unit: string; sub: string; highlight?: boolean }) {
   return (
-    <div className={`rounded-md p-8 backdrop-blur-md border transition-colors ${highlight ? "bg-surface/85 border-[rgba(197,165,63,0.4)]" : "card-classic"}`}>
-      <p className="label-classic">{label}</p>
-      <div className="mt-6 flex items-baseline gap-2">
-        <span className="serif text-5xl text-gold tabular-nums">{value}</span>
-        <span className="serif text-xl text-gold/70">{unit}</span>
+    <div
+      className={highlight ? "pixel-frame p-6 trim-top" : "pixel-frame-soft p-6"}
+      style={{ boxShadow: highlight ? undefined : "2px 2px 0 #000" }}
+    >
+      <p className="label-pixel">{label}</p>
+      <div className="mt-4 flex items-baseline gap-2">
+        <span className="font-mono text-4xl text-bronze tabular-nums" style={{ textShadow: "2px 2px 0 #000" }}>{value}</span>
+        <span className="font-mono text-lg text-bronze-dim">{unit}</span>
       </div>
-      <p className="text-sm text-silver mt-3">{sub}</p>
+      <p className="text-sm text-parchment/70 mt-3">{sub}</p>
     </div>
   );
 }
@@ -210,8 +245,28 @@ function Kpi({ label, value, unit, sub, highlight }: { label: string; value: str
 function Metric({ value, label }: { value: string; label: string }) {
   return (
     <div>
-      <div className="serif text-3xl text-gold tabular-nums">{value}</div>
-      <p className="label-classic mt-2">{label}</p>
+      <div className="font-mono text-3xl text-bronze tabular-nums" style={{ textShadow: "2px 2px 0 #000" }}>{value}</div>
+      <p className="label-pixel mt-2">{label}</p>
+    </div>
+  );
+}
+
+function Field({ label, value, suffix, mono }: { label: string; value: string; suffix?: string; mono?: boolean }) {
+  return (
+    <div>
+      <label className="label-pixel block mb-3">{label}</label>
+      <div className="relative">
+        <input
+          defaultValue={value}
+          className={`w-full bg-black/40 px-4 py-3 ${mono ? "font-mono" : "font-mono"} text-base text-parchment focus:outline-none ${suffix ? "pr-16" : ""}`}
+          style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+        />
+        {suffix && (
+          <button className="absolute right-1.5 top-1/2 -translate-y-1/2 label-pixel text-bronze px-3 py-1.5" style={{ border: "1px solid rgba(201,168,124,0.4)" }}>
+            {suffix}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,14 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Diamond } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { PixelEmblem } from "./PixelEmblem";
 
 const navLinks = [
-  { to: "/", label: "Home" },
-  { to: "/tasks", label: "Tasks" },
-  { to: "/dashboard", label: "Dashboard" },
-  { to: "/post-task", label: "Post Task" },
-  { to: "/leaderboard", label: "Leaderboard" },
+  { to: "/", label: "Hall" },
+  { to: "/tasks", label: "Quests" },
+  { to: "/dashboard", label: "Stats" },
+  { to: "/post-task", label: "Post" },
+  { to: "/leaderboard", label: "Register" },
 ] as const;
 
 export function Navbar() {
@@ -25,44 +26,53 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 w-full">
       <div
-        className={`transition-all duration-300 ${
+        className={`transition-colors duration-300 ${
           scrolled
-            ? "bg-background/80 backdrop-blur-md border-b border-[rgba(197,165,63,0.15)]"
-            : "bg-transparent border-b border-transparent"
+            ? "bg-[rgba(13,13,13,0.85)] backdrop-blur-sm"
+            : "bg-transparent"
         }`}
+        style={{
+          borderBottom: scrolled
+            ? "1px solid rgba(201,168,124,0.4)"
+            : "1px solid transparent",
+          boxShadow: scrolled ? "0 2px 0 #000" : undefined,
+        }}
       >
-        <div className="mx-auto flex h-20 max-w-[1280px] items-center justify-between px-6 md:px-10">
+        <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-4 md:px-8">
           <Link to="/" className="flex items-center gap-3 group">
-            <span className="flex h-8 w-8 items-center justify-center rounded-sm border border-[rgba(197,165,63,0.4)] text-gold">
-              <Diamond className="h-3.5 w-3.5" strokeWidth={1.5} />
+            <PixelEmblem size={28} />
+            <span className="font-mono text-bronze text-2xl tracking-[0.18em] leading-none">
+              McKWORK
             </span>
-            <span className="serif text-2xl font-medium tracking-tight text-gold">
-              McKWork
-            </span>
+            <span className="hidden md:inline label-pixel text-bronze-dim">Guild</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-10">
+          <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
-                className="label-classic gold-underline text-silver hover:text-gold transition-colors"
-                activeProps={{ className: "is-active text-gold" }}
+                className="font-mono text-base tracking-[0.2em] uppercase text-bronze-dim hover:text-bronze transition-colors group"
+                activeProps={{ className: "text-bronze" }}
                 activeOptions={{ exact: l.to === "/" }}
               >
-                {l.label}
+                <span className="inline-block">
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity">▸ </span>
+                  {l.label}
+                </span>
               </Link>
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-3">
-            <button className="btn-gold-outline rounded-full px-5 py-2.5 text-xs uppercase tracking-[0.12em] font-medium">
-              Connect Wallet
+          <div className="hidden md:flex items-center">
+            <button className="btn-pixel !py-2 !px-4 !text-sm">
+              <span className="text-bronze">⛁</span>
+              <span>Connect</span>
             </button>
           </div>
 
           <button
-            className="md:hidden p-2 text-gold"
+            className="md:hidden p-2 text-bronze"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
           >
@@ -76,24 +86,25 @@ export function Navbar() {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.25 }}
-              className="md:hidden overflow-hidden border-t border-[rgba(197,165,63,0.15)] bg-background/95 backdrop-blur-md"
+              transition={{ duration: 0.2 }}
+              className="md:hidden overflow-hidden bg-[rgba(13,13,13,0.95)]"
+              style={{ borderTop: "1px solid rgba(201,168,124,0.3)" }}
             >
-              <div className="px-6 py-6 flex flex-col gap-1">
+              <div className="px-6 py-5 flex flex-col">
                 {navLinks.map((l) => (
                   <Link
                     key={l.to}
                     to={l.to}
                     onClick={() => setOpen(false)}
-                    className="label-classic py-4 text-silver hover:text-gold border-b border-[rgba(197,165,63,0.08)]"
-                    activeProps={{ className: "text-gold" }}
+                    className="font-mono text-lg tracking-[0.2em] uppercase text-bronze-dim hover:text-bronze py-3"
+                    activeProps={{ className: "text-bronze" }}
                     activeOptions={{ exact: l.to === "/" }}
                   >
-                    {l.label}
+                    ▸ {l.label}
                   </Link>
                 ))}
-                <button className="btn-gold-outline rounded-full px-5 py-3 mt-6 text-xs uppercase tracking-[0.12em] font-medium">
-                  Connect Wallet
+                <button className="btn-pixel mt-4">
+                  <span>⛁ Connect Wallet</span>
                 </button>
               </div>
             </motion.div>
