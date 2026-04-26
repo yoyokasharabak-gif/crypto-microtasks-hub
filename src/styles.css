@@ -152,6 +152,7 @@
   }
   body {
     background-color: var(--color-background);
+    background-image: radial-gradient(ellipse at center, transparent 0%, var(--void-deep) 100%);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-size: 15px;
@@ -159,14 +160,15 @@
     -webkit-font-smoothing: antialiased;
   }
   h1, h2, h3, h4 {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-weight: 400;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--bronze);
+    text-shadow: 0 0 18px rgba(212, 175, 55, 0.18);
   }
   ::selection {
-    background: rgba(201, 168, 124, 0.4);
+    background: rgba(212, 175, 55, 0.4);
     color: #fff;
   }
 }
