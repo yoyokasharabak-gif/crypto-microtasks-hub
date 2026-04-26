@@ -38,21 +38,20 @@ export function Navbar() {
           boxShadow: scrolled ? "0 2px 0 #000" : undefined,
         }}
       >
-        <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between px-4 md:px-8">
-          <Link to="/" className="flex items-center gap-3 group">
-            <PixelEmblem size={28} />
-            <span className="font-mono text-bronze text-2xl tracking-[0.18em] leading-none">
+        <div className="mx-auto flex h-16 max-w-[1280px] items-center justify-between gap-4 px-4 md:px-6 lg:px-8">
+          <Link to="/" className="flex items-center gap-2.5 group shrink-0">
+            <PixelEmblem size={26} />
+            <span className="font-mono text-bronze text-xl md:text-2xl tracking-[0.16em] leading-none">
               McKWORK
             </span>
-            <span className="hidden md:inline label-pixel text-bronze-dim">Guild</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
             {navLinks.map((l) => (
               <Link
                 key={l.to}
                 to={l.to}
-                className="font-mono text-base tracking-[0.2em] uppercase text-bronze-dim hover:text-bronze transition-colors group"
+                className="font-mono text-[13px] xl:text-sm tracking-[0.18em] uppercase text-bronze-dim hover:text-bronze transition-colors group whitespace-nowrap"
                 activeProps={{ className: "text-bronze" }}
                 activeOptions={{ exact: l.to === "/" }}
               >
@@ -64,7 +63,7 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center shrink-0">
             <button className="btn-pixel !py-2 !px-4 !text-sm">
               <span className="text-bronze">⛁</span>
               <span>Connect</span>
@@ -78,6 +77,21 @@ export function Navbar() {
           >
             {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
+        </div>
+
+        {/* Elegant marquee — slow drift signature */}
+        <div
+          className="hidden md:block overflow-hidden"
+          style={{
+            borderTop: scrolled ? "1px solid rgba(201,168,124,0.15)" : "1px solid rgba(201,168,124,0.1)",
+            background: "rgba(10,10,15,0.55)",
+          }}
+          aria-hidden="true"
+        >
+          <div className="marquee-track py-1.5">
+            <MarqueeContent />
+            <MarqueeContent />
+          </div>
         </div>
 
         <AnimatePresence>
