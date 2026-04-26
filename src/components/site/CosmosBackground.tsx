@@ -48,10 +48,23 @@ export function CosmosBackground() {
     };
   }, []);
 
+  const dust = useMemo(
+    () =>
+      Array.from({ length: 18 }).map((_, i) => ({
+        left: Math.random() * 100,
+        delay: Math.random() * 30,
+        duration: 40 + Math.random() * 40,
+        key: i,
+      })),
+    [],
+  );
+
   return (
     <div className="cosmos" aria-hidden>
       <div className="cosmos__nebula" />
       <div className="cosmos__nebula--slow" />
+      <div className="cosmos__planet" />
+      <div className="cosmos__planet--small" />
 
       {/* Starfield */}
       <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none" viewBox="0 0 100 100">
@@ -61,13 +74,27 @@ export function CosmosBackground() {
             cx={s.x}
             cy={s.y}
             r={s.s * 0.08}
-            fill={s.s === 2 ? "#D4B87A" : "#FFF5E0"}
+            fill={s.s === 2 ? "#D4AF37" : "#F0F0F0"}
             opacity={s.o}
             className={s.twinkle ? "twinkle" : ""}
             style={s.twinkle ? { animationDelay: `${s.delay}s` } : undefined}
           />
         ))}
       </svg>
+
+      {/* Stardust particles */}
+      {dust.map((d) => (
+        <span
+          key={d.key}
+          className="stardust"
+          style={{
+            left: `${d.left}%`,
+            bottom: `-10px`,
+            animationDelay: `${d.delay}s`,
+            animationDuration: `${d.duration}s`,
+          }}
+        />
+      ))}
 
       {/* Meteors */}
       {meteors.map((m) => (
