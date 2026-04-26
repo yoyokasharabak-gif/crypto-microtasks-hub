@@ -12,51 +12,71 @@ export const Route = createFileRoute("/leaderboard")({
   component: RegisterPage,
 });
 
+type Entry = { mark: string; name: string; lvl: number; quests: number; gold: number };
+
+const ENTRIES: Entry[] = [
+  { mark: "⚜️", name: "CaptainAlam", lvl: 42, quests: 612, gold: 45.2 },
+  { mark: "🏴‍☠️", name: "LunaCrypto", lvl: 38, quests: 528, gold: 32.8 },
+  { mark: "⚡", name: "SolanaMaster", lvl: 35, quests: 491, gold: 28.4 },
+  { mark: "🌙", name: "BountyHunter_89", lvl: 31, quests: 402, gold: 21.3 },
+  { mark: "✨", name: "PixelQueen", lvl: 29, quests: 378, gold: 18.7 },
+  { mark: "🛰️", name: "OrbitRunner", lvl: 27, quests: 341, gold: 15.9 },
+  { mark: "🔭", name: "NebulaScout", lvl: 25, quests: 298, gold: 13.1 },
+  { mark: "⚙️", name: "GearheadVi", lvl: 22, quests: 254, gold: 10.4 },
+];
+
 function RegisterPage() {
   return (
     <div className="min-h-screen text-parchment">
       <Navbar />
       <main className="mx-auto max-w-[1280px] px-4 md:px-8 pt-12 pb-20">
-        <div className="quest-rule mb-6"><span>The Register</span></div>
-        <h1 className="font-mono text-bronze text-5xl uppercase leading-tight" style={{ textShadow: "2px 2px 0 #000" }}>
+        <div className="quest-rule mb-6"><span>The Contract Registry</span></div>
+        <h1 className="text-5xl uppercase leading-tight" style={{ textShadow: "0 0 20px rgba(212,175,55,0.3), 2px 2px 0 #000" }}>
           High Score · This Week
         </h1>
         <p className="accent-italic mt-4 text-xl text-parchment max-w-2xl">
-          A weekly ledger of the most diligent adventurers across the realm.
+          A weekly ledger of the most diligent privateers across the galaxy.
         </p>
 
         <div className="pixel-frame mt-12 overflow-hidden">
-          <div className="font-mono text-bronze text-base tracking-[0.2em] px-6 py-4" style={{ borderBottom: "2px solid rgba(201,168,124,0.5)" }}>
-            ━━━━ TOP OF THE REGISTER ━━━━
+          <div className="font-mono text-bronze text-base tracking-[0.2em] px-6 py-4" style={{ borderBottom: "2px solid rgba(212,175,55,0.5)" }}>
+            ━━━━ TOP OF THE FLEET ━━━━
           </div>
           <div className="overflow-x-auto">
             <table className="w-full font-mono min-w-[640px]">
               <thead>
-                <tr style={{ borderBottom: "2px solid rgba(201,168,124,0.4)" }}>
-                  <th className="text-left label-pixel py-4 px-6 w-24">Rank</th>
-                  <th className="text-left label-pixel py-4 px-6">Wallet</th>
+                <tr style={{ borderBottom: "2px solid rgba(212,175,55,0.4)" }}>
+                  <th className="text-left label-pixel py-4 px-6 w-20">Rank</th>
+                  <th className="text-left label-pixel py-4 px-6">Privateer</th>
                   <th className="text-right label-pixel py-4 px-6">Level</th>
-                  <th className="text-right label-pixel py-4 px-6">Quests</th>
+                  <th className="text-right label-pixel py-4 px-6">Contracts</th>
                   <th className="text-right label-pixel py-4 px-6">Gold</th>
                 </tr>
               </thead>
               <tbody>
-                {Array.from({ length: 8 }).map((_, i) => (
-                  <tr key={i} style={{ borderBottom: "2px solid rgba(201,168,124,0.15)" }}>
-                    <td className="py-5 px-6 text-bronze-dim/60 text-xl tabular-nums" style={{ textShadow: "1px 1px 0 #000" }}>
+                {ENTRIES.map((e, i) => (
+                  <tr key={e.name} className="hover:bg-bronze/5 transition-colors" style={{ borderBottom: i < ENTRIES.length - 1 ? "2px solid rgba(212,175,55,0.15)" : "none" }}>
+                    <td className="py-5 px-6 text-bronze text-xl tabular-nums" style={{ textShadow: "1px 1px 0 #000" }}>
                       {String(i + 1).padStart(2, "0")}
                     </td>
-                    <td className="py-5 px-6"><span className="empty-line w-32" /></td>
-                    <td className="py-5 px-6 text-right"><span className="empty-line w-12 inline-block" /></td>
-                    <td className="py-5 px-6 text-right"><span className="empty-line w-16 inline-block" /></td>
-                    <td className="py-5 px-6 text-right"><span className="empty-line w-20 inline-block" /></td>
+                    <td className="py-5 px-6">
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">{e.mark}</span>
+                        <span className="text-parchment tracking-wider text-lg">{e.name}</span>
+                      </div>
+                    </td>
+                    <td className="py-5 px-6 text-right text-bronze-dim tabular-nums">LV {e.lvl}</td>
+                    <td className="py-5 px-6 text-right text-parchment tabular-nums">{e.quests}</td>
+                    <td className="py-5 px-6 text-right text-bronze tabular-nums text-lg" style={{ textShadow: "0 0 10px rgba(212,175,55,0.35)" }}>
+                      ⛁ {e.gold.toFixed(1)}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <div className="px-6 py-8 text-center" style={{ borderTop: "2px solid rgba(201,168,124,0.3)" }}>
-            <p className="label-pixel text-bronze-dim">▸ The register is empty · Complete quests to climb</p>
+          <div className="px-6 py-6 text-center" style={{ borderTop: "2px solid rgba(212,175,55,0.3)" }}>
+            <p className="label-pixel text-bronze-dim">▸ Updated every 60 seconds · Next reset in 3 days</p>
           </div>
         </div>
       </main>
