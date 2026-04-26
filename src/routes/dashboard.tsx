@@ -257,7 +257,7 @@ function Field({ label, value, suffix, mono, placeholder }: { label: string; val
           style={{ border: "2px solid rgba(201,168,124,0.4)", boxShadow: "inset 2px 2px 0 #000" }}
         />
         {suffix && (
-          <button className="absolute right-1.5 top-1/2 -translate-y-1/2 label-pixel text-bronze px-3 py-1.5" style={{ border: "1px solid rgba(201,168,124,0.4)" }}>
+          <button className="absolute right-1.5 top-1/2 -translate-y-1/2 label-pixel text-bronze px-3 py-1.5" style={{ border: "2px solid rgba(201,168,124,0.45)" }}>
             {suffix}
           </button>
         )}

@@ -55,7 +55,7 @@ function PostQuestPage() {
               <input
                 placeholder="Identify objects in 5 photographs"
                 className="w-full bg-black/40 px-4 py-3 font-mono text-base text-parchment placeholder:text-bronze-dim/50 focus:outline-none"
-                style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
               />
             </div>
             <div>
@@ -64,7 +64,7 @@ function PostQuestPage() {
                 rows={5}
                 placeholder="Describe the work as you would brief an artisan…"
                 className="w-full bg-black/40 px-4 py-3 font-mono text-base text-parchment placeholder:text-bronze-dim/50 focus:outline-none resize-none"
-                style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
               />
             </div>
             <div className="grid md:grid-cols-2 gap-6">
@@ -72,7 +72,7 @@ function PostQuestPage() {
                 <label className="label-pixel block mb-3">Discipline</label>
                 <select
                   className="w-full bg-black/40 px-4 py-3 font-mono text-base text-parchment focus:outline-none"
-                  style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                  style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
                 >
                   {["AI Training", "Image Labeling", "Surveys", "Transcription", "Moderation", "Validation"].map((c) => (
                     <option key={c}>{c}</option>
@@ -84,7 +84,7 @@ function PostQuestPage() {
                 <input
                   defaultValue="0.05"
                   className="w-full bg-black/40 px-4 py-3 font-mono text-base text-bronze focus:outline-none"
-                  style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                  style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
                 />
               </div>
             </div>

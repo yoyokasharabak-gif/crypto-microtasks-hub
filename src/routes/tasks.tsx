@@ -98,7 +98,7 @@ function QuestBoard() {
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Quest title or keyword"
                   className="w-full bg-black/40 pl-10 pr-4 py-3 font-mono text-base text-parchment placeholder:text-bronze-dim/50 focus:outline-none"
-                  style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                  style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
                 />
               </div>
             </div>
@@ -108,7 +108,7 @@ function QuestBoard() {
                 value={cat}
                 onChange={(e) => setCat(e.target.value as typeof CATEGORIES[number])}
                 className="w-full bg-black/40 px-4 py-3 font-mono text-base text-parchment focus:outline-none"
-                style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
               >
                 {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
               </select>
@@ -122,7 +122,7 @@ function QuestBoard() {
                 value={minReward}
                 onChange={(e) => setMinReward(Number(e.target.value) || 0)}
                 className="w-full bg-black/40 px-4 py-3 font-mono text-base text-parchment focus:outline-none"
-                style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
               />
             </div>
             <div className="lg:col-span-2">
@@ -131,7 +131,7 @@ function QuestBoard() {
                 value={sort}
                 onChange={(e) => setSort(e.target.value as typeof SORTS[number])}
                 className="w-full bg-black/40 px-4 py-3 font-mono text-base text-parchment focus:outline-none"
-                style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
               >
                 {SORTS.map((s) => <option key={s}>{s}</option>)}
               </select>

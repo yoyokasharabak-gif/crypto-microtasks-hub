@@ -22,7 +22,7 @@ export function Footer() {
               <input
                 placeholder="your@scroll.com"
                 className="flex-1 bg-black/40 px-4 py-3 font-mono text-sm text-parchment placeholder:text-bronze-dim/60 focus:outline-none"
-                style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
               />
               <button className="btn-pixel-solid !text-sm !py-2 !px-4">Join</button>
             </div>
@@ -47,7 +47,7 @@ export function Footer() {
                 key={i}
                 href="#"
                 className="h-9 w-9 flex items-center justify-center text-bronze-dim hover:text-bronze transition-colors"
-                style={{ border: "1px solid rgba(201,168,124,0.3)", boxShadow: "1px 1px 0 #000" }}
+                style={{ border: "2px solid rgba(201,168,124,0.4)", boxShadow: "2px 2px 0 #000" }}
               >
                 <Icon className="h-3.5 w-3.5" />
               </a>
