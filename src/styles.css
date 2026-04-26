@@ -150,6 +150,10 @@
   html {
     color-scheme: dark;
   }
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
   body {
     background-color: var(--color-background);
     background-image: radial-gradient(ellipse at center, transparent 0%, var(--void-deep) 100%);
