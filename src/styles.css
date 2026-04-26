@@ -5,16 +5,17 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * McKWork — Retro Game Elegant
- * Pixel embroidery on velvet. Burgundy, bronze, teal, amethyst.
- * Inspired by Dragon Quest UI × Hermès packaging × Octopath HD-2D.
+ * McKWork — Space Pirate Modern
+ * Treasure Planet × Cowboy Bebop × Dune.
+ * Solar gold, plasma teal, nebula wine on the dark void.
  */
 
 @theme inline {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Cormorant Garamond", "EB Garamond", Georgia, serif;
-  --font-mono: "VT323", ui-monospace, "Courier New", monospace;
-  --font-pixel: "Press Start 2P", "VT323", monospace;
+  --font-mono: "Orbitron", "VT323", ui-monospace, monospace;
+  --font-pixel: "Orbitron", "Press Start 2P", monospace;
+  --font-display: "Audiowide", "Orbitron", sans-serif;
 
   --radius-sm: 0px;
   --radius-md: 2px;
