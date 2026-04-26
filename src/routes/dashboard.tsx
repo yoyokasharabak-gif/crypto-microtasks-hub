@@ -245,15 +245,16 @@ function Metric({ value, label }: { value: string; label: string }) {
   );
 }
 
-function Field({ label, value, suffix, mono }: { label: string; value: string; suffix?: string; mono?: boolean }) {
+function Field({ label, value, suffix, mono, placeholder }: { label: string; value: string; suffix?: string; mono?: boolean; placeholder?: string }) {
   return (
     <div>
       <label className="label-pixel block mb-3">{label}</label>
       <div className="relative">
         <input
           defaultValue={value}
-          className={`w-full bg-black/40 px-4 py-3 ${mono ? "font-mono" : "font-mono"} text-base text-parchment focus:outline-none ${suffix ? "pr-16" : ""}`}
-          style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+          placeholder={placeholder}
+          className={`w-full bg-black/40 px-4 py-3 ${mono ? "font-mono" : "font-mono"} text-base text-parchment placeholder:text-bronze-dim/50 focus:outline-none ${suffix ? "pr-16" : ""}`}
+          style={{ border: "2px solid rgba(201,168,124,0.4)", boxShadow: "inset 2px 2px 0 #000" }}
         />
         {suffix && (
           <button className="absolute right-1.5 top-1/2 -translate-y-1/2 label-pixel text-bronze px-3 py-1.5" style={{ border: "1px solid rgba(201,168,124,0.4)" }}>
