@@ -128,3 +128,27 @@ export function Navbar() {
     </header>
   );
 }
+
+const MARQUEE_ITEMS = [
+  "⟡ Claim Your Bounty",
+  "✦ Sail the Digital Seven Seas",
+  "⛁ Instant Solana Payouts",
+  "◈ 50,000+ Contracts Cleared",
+  "⚔ Verified by Consensus",
+  "✧ 12,000+ Active Privateers",
+  "⌬ The Galaxy's Most Elegant Guild",
+];
+
+function MarqueeContent() {
+  return (
+    <div className="marquee-content">
+      {MARQUEE_ITEMS.map((t, i) => (
+        <span key={i} className="marquee-item">
+          <span className="text-bronze">{t.slice(0, 1)}</span>
+          <span className="text-bronze-dim">{t.slice(1)}</span>
+          <span className="text-bronze/40 mx-6">·</span>
+        </span>
+      ))}
+    </div>
+  );
+}
