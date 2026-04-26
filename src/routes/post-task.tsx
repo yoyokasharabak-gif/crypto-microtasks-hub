@@ -30,10 +30,10 @@ function PostQuestPage() {
         <div className="pixel-frame p-6 mt-10">
           <div className="flex items-center justify-between mb-4">
             <span className="label-pixel">Step 01 / 07 · Basics</span>
-            <span className="font-mono text-bronze">14%</span>
+            <span className="font-mono text-bronze-dim">0%</span>
           </div>
           <div className="stat-bar">
-            <span style={{ width: "14%", background: "var(--bronze)" }} />
+            <span style={{ width: "0%", background: "var(--bronze)" }} />
           </div>
           <div className="grid grid-cols-7 gap-2 mt-4">
             {steps.map((s, i) => (
@@ -53,9 +53,9 @@ function PostQuestPage() {
             <div>
               <label className="label-pixel block mb-3">Quest Title</label>
               <input
-                placeholder="Identify objects in 5 photographs"
+                placeholder="Name thy quest…"
                 className="w-full bg-black/40 px-4 py-3 font-mono text-base text-parchment placeholder:text-bronze-dim/50 focus:outline-none"
-                style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
               />
             </div>
             <div>
@@ -64,16 +64,18 @@ function PostQuestPage() {
                 rows={5}
                 placeholder="Describe the work as you would brief an artisan…"
                 className="w-full bg-black/40 px-4 py-3 font-mono text-base text-parchment placeholder:text-bronze-dim/50 focus:outline-none resize-none"
-                style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
               />
             </div>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="label-pixel block mb-3">Discipline</label>
                 <select
+                  defaultValue=""
                   className="w-full bg-black/40 px-4 py-3 font-mono text-base text-parchment focus:outline-none"
-                  style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                  style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
                 >
+                  <option value="" disabled>— Select a discipline —</option>
                   {["AI Training", "Image Labeling", "Surveys", "Transcription", "Moderation", "Validation"].map((c) => (
                     <option key={c}>{c}</option>
                   ))}
@@ -82,9 +84,9 @@ function PostQuestPage() {
               <div>
                 <label className="label-pixel block mb-3">Reward · ⛁ SOL per quest</label>
                 <input
-                  defaultValue="0.05"
-                  className="w-full bg-black/40 px-4 py-3 font-mono text-base text-bronze focus:outline-none"
-                  style={{ border: "1px solid rgba(201,168,124,0.4)", boxShadow: "inset 1px 1px 0 #000" }}
+                  placeholder="0.00"
+                  className="w-full bg-black/40 px-4 py-3 font-mono text-base text-bronze placeholder:text-bronze-dim/50 focus:outline-none"
+                  style={{ border: "2px solid rgba(201,168,124,0.45)", boxShadow: "inset 2px 2px 0 #000" }}
                 />
               </div>
             </div>

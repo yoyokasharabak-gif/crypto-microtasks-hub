@@ -103,7 +103,7 @@ function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Scoreboard */}
+        {/* Scoreboard — awaiting live data */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -115,24 +115,31 @@ function Hero() {
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6">
             {[
-              { v: 50000, s: "+", l: "Quests Cleared", c: "text-bronze" },
-              { v: 12000, s: "+", l: "Active Agents", c: "text-teal-faded" },
-              { v: 150000, s: "+", l: "Gold Paid", p: "$", c: "text-bronze" },
-              { v: 180, s: "+", l: "Realms Served", c: "text-amethyst" },
+              { l: "Quests Cleared" },
+              { l: "Active Agents" },
+              { l: "Gold Paid" },
+              { l: "Realms Served" },
             ].map((s, i) => (
               <div key={i} className="text-center md:text-left">
                 <div className="label-pixel mb-3">{s.l}</div>
-                <div className={`font-mono text-4xl md:text-5xl tabular-nums ${s.c}`} style={{ textShadow: "2px 2px 0 #000" }}>
-                  <AnimatedCounter value={s.v} suffix={s.s} prefix={s.p ?? ""} />
+                <div className="font-mono text-4xl md:text-5xl tabular-nums text-bronze-dim/60" style={{ textShadow: "2px 2px 0 #000" }}>
+                  ——
                 </div>
+                <div className="empty-line w-20 mt-3" />
               </div>
             ))}
           </div>
+          <p className="label-pixel text-bronze-dim/70 mt-8 text-center md:text-left">
+            ▸ Awaiting live telemetry
+          </p>
         </motion.div>
       </div>
     </section>
   );
 }
+
+// AnimatedCounter retained for future live-data wiring
+void AnimatedCounter;
 
 /* ---------------- MANIFESTO ---------------- */
 function Manifesto() {
@@ -193,12 +200,12 @@ function Quests() {
 /* ---------------- CATEGORIES ---------------- */
 function Categories() {
   const cats = [
-    { sigil: "⌬", name: "AI Training", count: 2340, hue: "text-bronze" },
-    { sigil: "▣", name: "Image Labeling", count: 1892, hue: "text-teal-faded" },
-    { sigil: "✎", name: "Surveys", count: 543, hue: "text-amethyst" },
-    { sigil: "♪", name: "Transcription", count: 321, hue: "text-bronze" },
-    { sigil: "⚑", name: "Moderation", count: 156, hue: "text-copper" },
-    { sigil: "✓", name: "Validation", count: 892, hue: "text-bronze" },
+    { sigil: "⌬", name: "AI Training", hue: "text-bronze" },
+    { sigil: "▣", name: "Image Labeling", hue: "text-teal-faded" },
+    { sigil: "✎", name: "Surveys", hue: "text-amethyst" },
+    { sigil: "♪", name: "Transcription", hue: "text-bronze" },
+    { sigil: "⚑", name: "Moderation", hue: "text-copper" },
+    { sigil: "✓", name: "Validation", hue: "text-bronze" },
   ];
   return (
     <Section eyebrow="Disciplines of the Guild" title="A Trade for Every Adventurer">
@@ -211,15 +218,12 @@ function Categories() {
             viewport={{ once: true }}
             transition={{ duration: 0.35, delay: i * 0.05 }}
             className="pixel-frame-soft p-5 text-left hover:border-bronze transition-colors group"
-            style={{ boxShadow: "2px 2px 0 #000" }}
           >
             <div className={`font-mono text-3xl ${c.hue}`} style={{ textShadow: "1px 1px 0 #000" }}>
               {c.sigil}
             </div>
             <div className="font-mono text-base text-parchment mt-4 tracking-wider">{c.name}</div>
-            <div className="label-pixel mt-2 text-bronze-dim">
-              {c.count.toLocaleString()} open
-            </div>
+            <div className="label-pixel mt-2 text-bronze-dim">— open</div>
           </motion.button>
         ))}
       </div>
@@ -229,15 +233,10 @@ function Categories() {
 
 /* ---------------- TESTIMONIALS ---------------- */
 function Testimonials() {
-  const items = [
-    { quote: "I earned my first $50 in three days labelling images. McKWork has changed my life.", name: "Ahmad", country: "Indonesia", earned: "50", lvl: 8 },
-    { quote: "Perfect between classes. I earn ten to fifteen dollars daily, on my own schedule.", name: "Maria", country: "Philippines", earned: "320", lvl: 14 },
-    { quote: "Finally — a microtask platform that pays instantly, in crypto, with grace.", name: "John", country: "Nigeria", earned: "127", lvl: 11 },
-  ];
   return (
     <Section eyebrow="Letters from the Field" title="Voices of the Adventurers">
       <div className="grid md:grid-cols-3 gap-6">
-        {items.map((t, i) => (
+        {Array.from({ length: 3 }).map((_, i) => (
           <motion.figure
             key={i}
             initial={{ opacity: 0, y: 16 }}
@@ -247,18 +246,20 @@ function Testimonials() {
             className="pixel-frame p-8"
           >
             <span className="font-serif text-6xl text-bronze/40 leading-none block">“</span>
-            <blockquote className="accent-italic text-lg text-parchment leading-snug -mt-2">
-              {t.quote}
-            </blockquote>
+            <div className="space-y-3 mt-2">
+              <span className="empty-line block w-full" />
+              <span className="empty-line block w-11/12" />
+              <span className="empty-line block w-3/4" />
+            </div>
             <div className="quest-rule my-7" />
             <figcaption className="flex items-center justify-between">
               <div>
-                <div className="font-mono text-bronze text-lg tracking-wider">{t.name}</div>
-                <div className="label-pixel mt-1 text-bronze-dim">{t.country} · LV {t.lvl}</div>
+                <div className="empty-line block w-24 mb-2" style={{ height: 14 }} />
+                <div className="label-pixel mt-1 text-bronze-dim">— · LV —</div>
               </div>
               <div className="text-right">
-                <div className="font-mono text-3xl text-bronze tabular-nums" style={{ textShadow: "1px 1px 0 #000" }}>
-                  ${t.earned}
+                <div className="font-mono text-3xl text-bronze-dim/60 tabular-nums" style={{ textShadow: "1px 1px 0 #000" }}>
+                  $—
                 </div>
                 <div className="label-pixel mt-1 text-bronze-dim">Gold</div>
               </div>
@@ -272,33 +273,19 @@ function Testimonials() {
 
 /* ---------------- REGISTER ---------------- */
 function Register() {
-  const top = [
-    { rank: "01", addr: "8x7K…3pL9", sol: "12.84", lvl: 23 },
-    { rank: "02", addr: "Bn4P…vQ2x", sol: "10.12", lvl: 21 },
-    { rank: "03", addr: "Cz9M…kR8w", sol: "8.47", lvl: 19 },
-    { rank: "04", addr: "Df2H…mY1q", sol: "7.20", lvl: 17 },
-    { rank: "05", addr: "Eg6L…nT4r", sol: "6.55", lvl: 16 },
-  ];
   return (
     <Section eyebrow="High Score" title="This Week's Top Adventurers">
       <div className="pixel-frame overflow-hidden">
-        <div className="font-mono text-bronze text-base tracking-[0.2em] px-6 py-4" style={{ borderBottom: "1px solid rgba(201,168,124,0.4)" }}>
+        <div className="font-mono text-bronze text-base tracking-[0.2em] px-6 py-4" style={{ borderBottom: "2px solid rgba(201,168,124,0.5)" }}>
           ━━━━ TOP OF THE REGISTER ━━━━
         </div>
-        <table className="w-full font-mono text-base">
-          <tbody>
-            {top.map((t) => (
-              <tr key={t.rank} className="hover:bg-bronze/5 transition-colors" style={{ borderBottom: "1px solid rgba(201,168,124,0.12)" }}>
-                <td className="py-4 px-6 text-bronze text-xl w-20" style={{ textShadow: "1px 1px 0 #000" }}>{t.rank}</td>
-                <td className="py-4 px-6 text-parchment">{t.addr}</td>
-                <td className="py-4 px-6 text-bronze-dim text-sm tracking-wider">LV {t.lvl}</td>
-                <td className="py-4 px-6 text-right text-bronze text-xl tabular-nums" style={{ textShadow: "1px 1px 0 #000" }}>
-                  ⛁ {t.sol}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="px-6 py-16 text-center">
+          <div className="font-mono text-3xl text-bronze-dim mb-3" style={{ textShadow: "2px 2px 0 #000" }}>
+            ▣ ▣ ▣ ▣ ▣
+          </div>
+          <p className="label-pixel text-bronze-dim">No entries yet · The register awaits its first heroes</p>
+          <button className="btn-pixel mt-8 !text-sm !py-2 !px-5">▶ Be the First</button>
+        </div>
       </div>
     </Section>
   );

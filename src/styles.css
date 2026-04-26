@@ -131,8 +131,9 @@
   --parchment: #E8E0D0;
   --velvet: #0D0D0D;
 
-  --pixel-shadow: 2px 2px 0 #000;
-  --pixel-shadow-gold: 2px 2px 0 rgba(201, 168, 124, 0.5);
+  --pixel-shadow: 4px 4px 0 #000;
+  --pixel-shadow-gold: 3px 3px 0 rgba(201, 168, 124, 0.5);
+  --line-thick: 2px;
 }
 
 .dark {
@@ -204,41 +205,43 @@
   /* ── Pixel frame surfaces ─────────────────────────────────────── */
   .pixel-frame {
     position: relative;
-    background: rgba(43, 16, 21, 0.55);
-    border: 1px solid var(--bronze);
+    background: rgba(20, 10, 14, 0.72);
+    border: 2px solid var(--bronze);
     box-shadow:
       inset 0 0 0 1px #000,
+      inset 0 0 0 3px rgba(201, 168, 124, 0.18),
       var(--pixel-shadow);
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(6px);
   }
   .pixel-frame::before {
-    /* Pixel stitching corners */
+    /* Pixel stitching corners — bolder */
     content: "";
     position: absolute;
-    inset: -1px;
+    inset: -2px;
     pointer-events: none;
     background:
-      linear-gradient(var(--bronze), var(--bronze)) top left / 8px 1px no-repeat,
-      linear-gradient(var(--bronze), var(--bronze)) top left / 1px 8px no-repeat,
-      linear-gradient(var(--bronze), var(--bronze)) top right / 8px 1px no-repeat,
-      linear-gradient(var(--bronze), var(--bronze)) top right / 1px 8px no-repeat,
-      linear-gradient(var(--bronze), var(--bronze)) bottom left / 8px 1px no-repeat,
-      linear-gradient(var(--bronze), var(--bronze)) bottom left / 1px 8px no-repeat,
-      linear-gradient(var(--bronze), var(--bronze)) bottom right / 8px 1px no-repeat,
-      linear-gradient(var(--bronze), var(--bronze)) bottom right / 1px 8px no-repeat;
+      linear-gradient(var(--bronze), var(--bronze)) top left / 14px 2px no-repeat,
+      linear-gradient(var(--bronze), var(--bronze)) top left / 2px 14px no-repeat,
+      linear-gradient(var(--bronze), var(--bronze)) top right / 14px 2px no-repeat,
+      linear-gradient(var(--bronze), var(--bronze)) top right / 2px 14px no-repeat,
+      linear-gradient(var(--bronze), var(--bronze)) bottom left / 14px 2px no-repeat,
+      linear-gradient(var(--bronze), var(--bronze)) bottom left / 2px 14px no-repeat,
+      linear-gradient(var(--bronze), var(--bronze)) bottom right / 14px 2px no-repeat,
+      linear-gradient(var(--bronze), var(--bronze)) bottom right / 2px 14px no-repeat;
   }
   .pixel-frame-soft {
-    background: rgba(43, 16, 21, 0.55);
-    border: 1px solid rgba(201, 168, 124, 0.35);
-    backdrop-filter: blur(2px);
+    background: rgba(20, 10, 14, 0.6);
+    border: 2px solid rgba(201, 168, 124, 0.55);
+    box-shadow: 3px 3px 0 #000;
+    backdrop-filter: blur(4px);
   }
 
   /* Top-edge gold trim only */
   .trim-top {
-    border-top: 2px solid var(--bronze);
+    border-top: 4px solid var(--bronze);
   }
   .trim-bottom {
-    border-bottom: 1px solid rgba(201, 168, 124, 0.35);
+    border-bottom: 2px solid rgba(201, 168, 124, 0.55);
   }
 
   /* ── Buttons ──────────────────────────────────────────────────── */
@@ -248,8 +251,8 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--bronze);
-    background: transparent;
-    border: 1px solid var(--bronze);
+    background: rgba(13, 13, 13, 0.4);
+    border: 2px solid var(--bronze);
     padding: 12px 28px;
     box-shadow: var(--pixel-shadow);
     transition: transform 0.12s steps(2), background 0.18s linear, color 0.18s linear, box-shadow 0.18s linear;
@@ -262,12 +265,12 @@
   .btn-pixel:hover {
     background: var(--bronze);
     color: var(--velvet);
-    box-shadow: 4px 4px 0 #000;
+    box-shadow: 6px 6px 0 #000;
     transform: translate(-2px, -2px);
   }
   .btn-pixel:active {
     transform: translate(0, 0);
-    box-shadow: 1px 1px 0 #000;
+    box-shadow: 2px 2px 0 #000;
   }
   .btn-pixel-solid {
     font-family: var(--font-mono);
@@ -276,7 +279,7 @@
     text-transform: uppercase;
     color: var(--velvet);
     background: var(--bronze);
-    border: 1px solid var(--bronze);
+    border: 2px solid var(--bronze);
     padding: 12px 28px;
     box-shadow: var(--pixel-shadow);
     transition: transform 0.12s steps(2), background 0.18s linear, box-shadow 0.18s linear;
@@ -287,22 +290,22 @@
     gap: 10px;
   }
   .btn-pixel-solid:hover {
-    background: #d8b88a;
-    box-shadow: 4px 4px 0 #000;
+    background: #e2c294;
+    box-shadow: 6px 6px 0 #000;
     transform: translate(-2px, -2px);
   }
   .btn-pixel-solid:active {
     transform: translate(0, 0);
-    box-shadow: 1px 1px 0 #000;
+    box-shadow: 2px 2px 0 #000;
   }
 
   /* ── Pixel ribbon (category badge) ────────────────────────────── */
   .ribbon {
     display: inline-block;
-    padding: 4px 10px 4px 14px;
+    padding: 5px 12px 5px 16px;
     background: var(--burgundy);
-    border: 1px solid var(--bronze);
-    box-shadow: 1px 1px 0 #000;
+    border: 2px solid var(--bronze);
+    box-shadow: 2px 2px 0 #000;
     font-family: var(--font-pixel);
     font-size: 8px;
     letter-spacing: 0.1em;
@@ -312,11 +315,12 @@
 
   /* ── HP / MP / EXP bars ───────────────────────────────────────── */
   .stat-bar {
-    height: 14px;
+    height: 16px;
     background: #000;
-    border: 1px solid var(--bronze);
+    border: 2px solid var(--bronze);
     position: relative;
     overflow: hidden;
+    box-shadow: 2px 2px 0 #000;
   }
   .stat-bar > span {
     display: block;
@@ -402,11 +406,11 @@
     mix-blend-mode: overlay;
   }
 
-  /* Quest log header strip */
+  /* Quest log header strip — thicker dashed rule */
   .quest-rule {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     color: var(--bronze);
     font-family: var(--font-mono);
     font-size: 16px;
@@ -417,14 +421,53 @@
   .quest-rule::after {
     content: "";
     flex: 1;
-    height: 1px;
+    height: 3px;
     background: repeating-linear-gradient(
       90deg,
       var(--bronze) 0,
-      var(--bronze) 4px,
-      transparent 4px,
-      transparent 8px
+      var(--bronze) 8px,
+      transparent 8px,
+      transparent 14px
     );
+  }
+
+  /* ── Empty / placeholder slot (modern dashed) ──────────────────── */
+  .empty-slot {
+    border: 2px dashed rgba(201, 168, 124, 0.35);
+    background: rgba(13, 13, 13, 0.35);
+    color: var(--bronze-dim);
+    font-family: var(--font-mono);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+  .empty-slot:hover {
+    border-color: var(--bronze);
+    color: var(--bronze);
+  }
+  .empty-line {
+    display: inline-block;
+    height: 10px;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(201, 168, 124, 0.18) 0,
+      rgba(201, 168, 124, 0.18) 6px,
+      transparent 6px,
+      transparent 12px
+    );
+    border-radius: 2px;
+  }
+
+  /* Modern thick rule (for non-pixel borders) */
+  .rule-thick {
+    border-top: 2px solid var(--bronze);
+  }
+  .rule-thick-soft {
+    border-top: 2px solid rgba(201, 168, 124, 0.35);
   }
 }
 
