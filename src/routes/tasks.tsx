@@ -40,17 +40,7 @@ type Quest = {
   accuracy: number;
 };
 
-const QUESTS: Quest[] = [
-  { id: "q1", category: "Image Labeling", title: "Mark vehicles in urban photographs", desc: "Tag every visible vehicle across five street-level images.", reward: 0.05, usd: 1.20, minutes: 2, difficulty: "Easy", slots: 234, accuracy: 90 },
-  { id: "q2", category: "AI Training", title: "Compare two model responses", desc: "Choose the more helpful, factually grounded answer of the pair.", reward: 0.12, usd: 2.88, minutes: 5, difficulty: "Medium", slots: 89, accuracy: 92 },
-  { id: "q3", category: "Surveys", title: "EU consumer behaviour study", desc: "Fifteen short questions for adults residing in the European Union.", reward: 0.08, usd: 1.92, minutes: 4, difficulty: "Easy", slots: 412, accuracy: 85 },
-  { id: "q4", category: "Transcription", title: "Transcribe a 90-second audio clip", desc: "Verbatim transcription of a clear podcast excerpt.", reward: 0.18, usd: 4.32, minutes: 8, difficulty: "Medium", slots: 47, accuracy: 95 },
-  { id: "q5", category: "Moderation", title: "Review forum content", desc: "Approve, flag, or reject user posts per community guidelines.", reward: 0.06, usd: 1.44, minutes: 3, difficulty: "Easy", slots: 156, accuracy: 88 },
-  { id: "q6", category: "Validation", title: "Verify business addresses, 12 cities", desc: "Cross-reference listings against authoritative public sources.", reward: 0.14, usd: 3.36, minutes: 6, difficulty: "Medium", slots: 73, accuracy: 93 },
-  { id: "q7", category: "AI Training", title: "Annotate medical imagery", desc: "Outline regions of interest in anonymised scans. Training provided.", reward: 0.32, usd: 7.68, minutes: 12, difficulty: "Hard", slots: 28, accuracy: 96 },
-  { id: "q8", category: "Image Labeling", title: "Classify product photographs", desc: "Assign retail categories to a small batch of catalogue images.", reward: 0.04, usd: 0.96, minutes: 2, difficulty: "Easy", slots: 612, accuracy: 88 },
-  { id: "q9", category: "Surveys", title: "Habits & wellbeing — long form", desc: "A considered, forty-question study on daily routine.", reward: 0.22, usd: 5.28, minutes: 14, difficulty: "Easy", slots: 198, accuracy: 80 },
-];
+const QUESTS: Quest[] = [];
 
 function QuestBoard() {
   const [query, setQuery] = useState("");
@@ -149,33 +139,63 @@ function QuestBoard() {
           </div>
         </div>
 
-        {/* Grid */}
-        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((q, i) => <QuestCard key={q.id} q={q} i={i} />)}
-        </div>
-
-        {filtered.length === 0 && (
-          <div className="pixel-frame py-16 text-center mt-8">
-            <p className="font-mono text-2xl text-bronze">━━━ NO QUESTS FOUND ━━━</p>
-            <p className="text-parchment/80 mt-3">Adjust thy filters, adventurer.</p>
-            <button
-              onClick={() => { setQuery(""); setCat("All"); setMinReward(0); }}
-              className="btn-pixel mt-6 !text-sm !py-2 !px-5"
-            >
-              Reset Filters
-            </button>
-          </div>
-        )}
-
-        {filtered.length > 0 && (
-          <div className="mt-12 flex items-center justify-between">
-            <p className="label-pixel">Page 01 / 04</p>
-            <div className="flex gap-3">
-              <button className="btn-pixel !text-sm !py-2 !px-5">◂ Prev</button>
-              <button className="btn-pixel-solid !text-sm !py-2 !px-5">Next ▸</button>
+        {/* Grid — placeholder slots while the board is being populated */}
+        {filtered.length > 0 ? (
+          <>
+            <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filtered.map((q, i) => <QuestCard key={q.id} q={q} i={i} />)}
             </div>
-          </div>
+            <div className="mt-12 flex items-center justify-between">
+              <p className="label-pixel">Page 01 / 01</p>
+              <div className="flex gap-3">
+                <button className="btn-pixel !text-sm !py-2 !px-5">◂ Prev</button>
+                <button className="btn-pixel-solid !text-sm !py-2 !px-5">Next ▸</button>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <EmptyQuestSlot key={i} i={i} />
+              ))}
+            </div>
+            <div className="pixel-frame py-10 text-center mt-10">
+              <p className="font-mono text-2xl text-bronze">━━━ THE BOARD AWAITS ━━━</p>
+              <p className="text-parchment/80 mt-3 max-w-md mx-auto">
+                No quests have been posted yet. Patrons of the Guild are preparing the first commissions.
+              </p>
+              <button
+                onClick={() => { setQuery(""); setCat("All"); setMinReward(0); }}
+                className="btn-pixel mt-6 !text-sm !py-2 !px-5"
+              >
+                Reset Filters
+              </button>
+            </div>
+          </>
         )}
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+function EmptyQuestSlot({ i }: { i: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.35, delay: i * 0.05 }}
+      className="empty-slot p-8 min-h-[260px] flex-col gap-4"
+    >
+      <div className="font-mono text-4xl text-bronze-dim/60" style={{ textShadow: "2px 2px 0 #000" }}>▢</div>
+      <span className="empty-line w-1/2" />
+      <span className="empty-line w-2/3" />
+      <span className="label-pixel mt-2">Quest slot · vacant</span>
+    </motion.div>
+  );
+}
       </main>
       <Footer />
     </div>
