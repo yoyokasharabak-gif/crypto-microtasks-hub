@@ -45,20 +45,6 @@ type Quest = {
   accuracy: number;
 };
 
-// Six empty placeholder quests — board awaits first transmissions
-const PLACEHOLDER_QUESTS: Quest[] = Array.from({ length: 6 }).map((_, i) => ({
-  id: `empty-${i}`,
-  category: "All",
-  title: "——",
-  desc: "Awaiting first transmission from the patrons of the Guild.",
-  reward: 0,
-  usd: 0,
-  minutes: 0,
-  difficulty: "——",
-  slots: 0,
-  accuracy: 0,
-}));
-
 function QuestBoard() {
   const { connected } = useWallet();
   const [posted, setPosted] = useState<PostedQuest[]>([]);
