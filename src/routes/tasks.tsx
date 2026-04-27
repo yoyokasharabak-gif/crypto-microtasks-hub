@@ -128,7 +128,7 @@ function QuestBoard() {
           <div className="text-right">
             <div className="label-pixel text-bronze-dim mb-2">Currently Open</div>
             <div className="font-mono text-5xl text-bronze tabular-nums" style={{ textShadow: "2px 2px 0 #000" }}>
-              {String(QUESTS.length).padStart(4, "0")}
+              {String(realQuests.length).padStart(4, "0")}
             </div>
           </div>
         </div>
@@ -190,7 +190,7 @@ function QuestBoard() {
         {filtered.length > 0 ? (
           <>
             <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filtered.map((q, i) => <QuestCard key={q.id} q={q} i={i} />)}
+              {filtered.map((q, i) => <QuestCard key={q.id} q={q} i={i} onAccept={handleAccept} />)}
             </div>
             <div className="mt-12 flex items-center justify-between">
               <p className="label-pixel">Page 01 / 01</p>
