@@ -244,12 +244,13 @@ function EmptyQuestSlot({ i }: { i: number }) {
   );
 }
 
-function QuestCard({ q, i }: { q: Quest; i: number }) {
+function QuestCard({ q, i, onAccept }: { q: Quest; i: number; onAccept: () => void }) {
   const diffColor =
     q.difficulty === "Easy" ? "text-forest" :
     q.difficulty === "Medium" ? "text-bronze" :
-    "text-copper";
-  const diffSym = q.difficulty === "Easy" ? "★" : q.difficulty === "Medium" ? "★★" : "★★★";
+    q.difficulty === "Hard" ? "text-copper" :
+    "text-bronze-dim";
+  const diffSym = q.difficulty === "Easy" ? "★" : q.difficulty === "Medium" ? "★★" : q.difficulty === "Hard" ? "★★★" : "——";
 
   return (
     <motion.article
@@ -290,7 +291,7 @@ function QuestCard({ q, i }: { q: Quest; i: number }) {
         </div>
       </div>
 
-      <button className="btn-pixel mt-6 w-full !text-sm">
+      <button onClick={onAccept} className="btn-pixel mt-6 w-full !text-sm">
         ▶ Accept Quest
       </button>
 
