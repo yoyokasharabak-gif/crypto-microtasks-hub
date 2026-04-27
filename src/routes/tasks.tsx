@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Search } from "lucide-react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { useWallet } from "@/lib/wallet";
+import { getPostedQuests, type PostedQuest } from "@/lib/quests";
 
 export const Route = createFileRoute("/tasks")({
   head: () => ({
