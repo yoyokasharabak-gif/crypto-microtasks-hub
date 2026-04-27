@@ -344,94 +344,81 @@ function Categories() {
 
 /* ---------------- TESTIMONIALS ---------------- */
 function Testimonials() {
-  const voices = [
-    {
-      quote: "Saya bisa beli perlengkapan kuliah dari hasil labeling gambar. Bayarannya instan, langsung masuk wallet.",
-      name: "Ahmad",
-      role: "Mahasiswa IT · Bandung",
-      gold: 12.4,
-    },
-    {
-      quote: "Side hustle terbaik. Dalam seminggu saya kumpulkan 5 SOL — lebih cepat cair daripada platform lain.",
-      name: "Maria",
-      role: "Freelancer · Manila",
-      gold: 8.9,
-    },
-    {
-      quote: "Klien serius, kontrak jelas, verifikasi cepat. McKWork jadi pemasukan utama saya sekarang.",
-      name: "Budi",
-      role: "Data Annotator · Jakarta",
-      gold: 24.7,
-    },
-  ];
   return (
     <Section eyebrow="Voices from the Fleet" title="Voices of the Privateers">
       <div className="grid md:grid-cols-3 gap-6">
-        {voices.map((v, i) => (
+        {[0, 1, 2].map((i) => (
           <motion.figure
             key={i}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="pixel-frame p-8"
+            className="pixel-frame p-8 opacity-70"
+            style={{ borderStyle: "dashed" }}
           >
-            <span className="font-serif text-6xl text-bronze/40 leading-none block">"</span>
-            <p className="accent-italic text-lg text-parchment leading-snug mt-2">{v.quote}</p>
+            <span className="font-serif text-6xl text-bronze/30 leading-none block">"</span>
+            <div className="mt-4 space-y-3">
+              <div className="h-4 w-full bg-bronze/10" />
+              <div className="h-4 w-11/12 bg-bronze/10" />
+              <div className="h-4 w-2/3 bg-bronze/10" />
+            </div>
             <div className="quest-rule my-7" />
             <figcaption className="flex items-center justify-between">
-              <div>
-                <div className="font-mono text-bronze tracking-wider">{v.name}</div>
-                <div className="label-pixel mt-1 text-bronze-dim">{v.role}</div>
+              <div className="space-y-2">
+                <div className="h-4 w-24 bg-bronze/10" />
+                <div className="h-3 w-32 bg-bronze/10" />
               </div>
-              <div className="text-right">
-                <div className="font-mono text-2xl text-bronze tabular-nums" style={{ textShadow: "0 0 10px rgba(212,175,55,0.35)" }}>
-                  ⛁ {v.gold}
-                </div>
-                <div className="label-pixel mt-1 text-bronze-dim">Earned</div>
+              <div className="space-y-2 text-right">
+                <div className="h-6 w-16 bg-bronze/10 ml-auto" />
+                <div className="h-3 w-12 bg-bronze/10 ml-auto" />
               </div>
             </figcaption>
           </motion.figure>
         ))}
       </div>
+      <p className="text-center label-pixel text-bronze-dim mt-8">
+        ▸ Awaiting the first testimonies from our privateers
+      </p>
     </Section>
   );
 }
 
 /* ---------------- LEADERBOARD ---------------- */
 function Leaderboard() {
-  const top = [
-    { mark: "⚜️", name: "CaptainAlam", lvl: 42, gold: 45.2 },
-    { mark: "🏴‍☠️", name: "LunaCrypto", lvl: 38, gold: 32.8 },
-    { mark: "⚡", name: "SolanaMaster", lvl: 35, gold: 28.4 },
-    { mark: "🌙", name: "BountyHunter_89", lvl: 31, gold: 21.3 },
-    { mark: "✨", name: "PixelQueen", lvl: 29, gold: 18.7 },
-  ];
   return (
     <Section eyebrow="High Score" title="This Week's Top Privateers">
       <div className="pixel-frame overflow-hidden">
         <div className="font-mono text-bronze text-base tracking-[0.2em] px-6 py-4" style={{ borderBottom: "2px solid rgba(212,175,55,0.5)" }}>
           ━━━━ TOP OF THE FLEET ━━━━
         </div>
-        <ul className="divide-y" style={{ borderColor: "rgba(212,175,55,0.18)" }}>
-          {top.map((t, i) => (
-            <li
-              key={t.name}
-              className="flex items-center gap-4 px-6 py-5 hover:bg-bronze/5 transition-colors"
-              style={{ borderBottom: i < top.length - 1 ? "2px solid rgba(212,175,55,0.15)" : "none" }}
-            >
-              <span className="font-mono text-2xl text-bronze tabular-nums w-10" style={{ textShadow: "1px 1px 0 #000" }}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="text-2xl w-8 text-center">{t.mark}</span>
-              <span className="flex-1 font-mono text-parchment tracking-wider text-lg">{t.name}</span>
-              <span className="label-pixel text-bronze-dim hidden sm:inline">LV {t.lvl}</span>
-              <span className="font-mono text-xl text-bronze tabular-nums w-28 text-right" style={{ textShadow: "0 0 10px rgba(212,175,55,0.35)" }}>
-                ⛁ {t.gold.toFixed(1)}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <div className="px-6 py-16 text-center">
+          <div className="font-mono text-4xl text-bronze/40 mb-4" style={{ textShadow: "2px 2px 0 #000" }}>
+            ⚜  ◇  ⚜
+          </div>
+          <h3 className="font-mono text-xl text-bronze uppercase tracking-widest">
+            The Register is Empty
+          </h3>
+          <p className="accent-italic mt-3 text-parchment/70 max-w-md mx-auto">
+            No privateers have logged contracts this week. Be the first to claim the throne.
+          </p>
+          <div className="quest-rule my-8" />
+          <ul className="space-y-3 max-w-xl mx-auto">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <li
+                key={i}
+                className="flex items-center gap-4 px-4 py-4 opacity-50"
+                style={{ border: "2px dashed rgba(212,175,55,0.2)" }}
+              >
+                <span className="font-mono text-xl text-bronze/40 tabular-nums w-10 text-left" style={{ textShadow: "1px 1px 0 #000" }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="h-4 flex-1 bg-bronze/10" />
+                <div className="h-4 w-20 bg-bronze/10" />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Section>
   );
