@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Copy } from "lucide-react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { useWallet, shortAddr } from "@/lib/wallet";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
