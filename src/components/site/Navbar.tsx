@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { PixelEmblem } from "./PixelEmblem";
+import { useWallet, shortAddr } from "@/lib/wallet";
 
 const navLinks = [
   { to: "/", label: "Hangar" },
@@ -64,10 +65,7 @@ export function Navbar() {
           </nav>
 
           <div className="hidden xl:flex items-center shrink-0">
-            <button className="btn-pixel !py-2 !px-4 !text-sm">
-              <span className="text-bronze">⛁</span>
-              <span>Connect</span>
-            </button>
+            <WalletButton />
           </div>
 
           <button
@@ -117,9 +115,9 @@ export function Navbar() {
                     ▸ {l.label}
                   </Link>
                 ))}
-                <button className="btn-pixel mt-4">
-                  <span>⛁ Connect Wallet</span>
-                </button>
+                <div className="mt-4">
+                  <WalletButton full />
+                </div>
               </div>
             </motion.div>
           )}
@@ -150,5 +148,28 @@ function MarqueeContent() {
         </span>
       ))}
     </div>
+  );
+}
+
+function WalletButton({ full }: { full?: boolean }) {
+  const { connected, address, balance, connect, disconnect } = useWallet();
+  if (connected && address) {
+    return (
+      <button
+        onClick={disconnect}
+        className={`btn-pixel !py-2 !px-4 !text-xs ${full ? "w-full" : ""}`}
+        title="Click to disconnect"
+      >
+        <span className="text-bronze">⛁</span>
+        <span className="font-mono tracking-wider">{shortAddr(address)}</span>
+        <span className="text-bronze-dim">· {balance.toFixed(2)} SOL</span>
+      </button>
+    );
+  }
+  return (
+    <button onClick={connect} className={`btn-pixel !py-2 !px-4 !text-sm ${full ? "w-full" : ""}`}>
+      <span className="text-bronze">⛁</span>
+      <span>Connect Wallet</span>
+    </button>
   );
 }

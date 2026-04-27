@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
@@ -95,15 +95,15 @@ function Hero() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="mt-12 flex flex-wrap gap-5">
-            <button className="btn-pixel-solid">
+            <Link to="/tasks" className="btn-pixel-solid">
               <span>⚔</span>
-              <span>Start Bounty</span>
+              <span>Start Questing</span>
               <span>⚔</span>
-            </button>
-            <button className="btn-pixel">
+            </Link>
+            <Link to="/post-task" className="btn-pixel">
               <span>＋</span>
               <span>Post Contract</span>
-            </button>
+            </Link>
           </motion.div>
         </motion.div>
 
