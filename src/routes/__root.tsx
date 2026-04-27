@@ -1,5 +1,6 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { CosmosBackground } from "@/components/site/CosmosBackground";
+import { WalletProvider } from "@/lib/wallet";
 
 import appCss from "../styles.css?url";
 
@@ -65,9 +66,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <>
+    <WalletProvider>
       <CosmosBackground />
       <Outlet />
-    </>
+    </WalletProvider>
   );
 }
