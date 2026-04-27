@@ -107,7 +107,7 @@ function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Scoreboard — live data */}
+        {/* Scoreboard — awaiting first privateers */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,22 +118,20 @@ function Hero() {
             <span>Galactic Scoreboard</span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6">
-            {[
-              { l: "Contracts Cleared", v: 50000, suf: "+" },
-              { l: "Active Privateers", v: 12000, suf: "+" },
-              { l: "Solar Gold Paid", v: 150000, suf: " SOL" },
-              { l: "Sectors Served", v: 180, suf: "+" },
-            ].map((s) => (
-              <div key={s.l} className="text-center md:text-left">
-                <div className="label-pixel mb-3">{s.l}</div>
+            {["Contracts Cleared", "Active Privateers", "Solar Gold Paid", "Sectors Served"].map((l) => (
+              <div key={l} className="text-center md:text-left">
+                <div className="label-pixel mb-3">{l}</div>
                 <div
-                  className="font-mono text-4xl md:text-5xl tabular-nums text-bronze"
-                  style={{ textShadow: "2px 2px 0 #000, 0 0 18px rgba(212,175,55,0.25)" }}
+                  className="font-mono text-4xl md:text-5xl tabular-nums text-bronze/40"
+                  style={{ textShadow: "2px 2px 0 #000" }}
                 >
-                  <AnimatedCounter value={s.v} suffix={s.suf} />
+                  ——
                 </div>
               </div>
             ))}
+          </div>
+          <div className="mt-6 pt-5 border-t-2 border-bronze/15 text-center">
+            <p className="label-pixel text-bronze-dim">▸ Awaiting first transmissions from the fleet</p>
           </div>
         </motion.div>
       </div>
