@@ -219,21 +219,49 @@ type Bounty = {
   mins: number;
   diff: "Easy" | "Medium" | "Hard";
 };
-const SAMPLE: Bounty[] = [
-  { cat: "AI Training", title: "Identify objects in satellite imagery", reward: 0.05, usd: 1.2, mins: 2, diff: "Easy" },
-  { cat: "Image Labeling", title: "Tag medical scan anomalies", reward: 0.18, usd: 4.32, mins: 8, diff: "Medium" },
-  { cat: "Survey", title: "Rate game UX prototypes (10 screens)", reward: 0.08, usd: 1.92, mins: 5, diff: "Easy" },
-  { cat: "Transcription", title: "Transcribe pilot radio chatter (3 min)", reward: 0.22, usd: 5.28, mins: 12, diff: "Medium" },
-  { cat: "Moderation", title: "Review marketplace listings for policy", reward: 0.12, usd: 2.88, mins: 6, diff: "Medium" },
-  { cat: "Validation", title: "Verify on-chain merchant addresses", reward: 0.35, usd: 8.4, mins: 18, diff: "Hard" },
-];
+const SAMPLE: Bounty[] = [];
 
 function Bounties() {
   return (
     <Section eyebrow="Open Contracts" title="Today's Bounty Board">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {SAMPLE.map((b, i) => <BountyCard key={i} b={b} i={i} />)}
-      </div>
+      {SAMPLE.length === 0 ? (
+        <div className="pixel-frame p-12 md:p-20 text-center">
+          <div className="font-mono text-5xl text-bronze/50 mb-6" style={{ textShadow: "2px 2px 0 #000" }}>
+            ⌬ ◇ ⌬
+          </div>
+          <h3 className="text-2xl text-bronze uppercase tracking-widest" style={{ textShadow: "0 0 14px rgba(212,175,55,0.3)" }}>
+            The Bounty Board is Empty
+          </h3>
+          <p className="accent-italic mt-4 text-lg text-parchment/70 max-w-md mx-auto">
+            No contracts have been posted yet. The first patrons of the Guild are arriving soon.
+          </p>
+          <div className="quest-rule my-8" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="pixel-frame-soft p-6 trim-top opacity-60" style={{ borderStyle: "dashed" }}>
+                <div className="h-6 w-24 bg-bronze/10 mb-5" />
+                <div className="h-5 w-full bg-bronze/10 mb-3" />
+                <div className="h-5 w-3/4 bg-bronze/10" />
+                <div className="quest-rule my-6" />
+                <div className="flex justify-between">
+                  <div>
+                    <div className="h-3 w-12 bg-bronze/10 mb-2" />
+                    <div className="h-8 w-20 bg-bronze/10" />
+                  </div>
+                  <div>
+                    <div className="h-3 w-10 bg-bronze/10 mb-2" />
+                    <div className="h-5 w-16 bg-bronze/10" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {SAMPLE.map((b, i) => <BountyCard key={i} b={b} i={i} />)}
+        </div>
+      )}
     </Section>
   );
 }
