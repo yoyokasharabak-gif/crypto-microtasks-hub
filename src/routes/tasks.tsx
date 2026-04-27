@@ -204,7 +204,7 @@ function QuestBoard() {
           <>
             <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {Array.from({ length: 6 }).map((_, i) => (
-                <EmptyQuestSlot key={i} i={i} />
+                <EmptyQuestSlot key={i} i={i} onAccept={handleAccept} />
               ))}
             </div>
             <div className="pixel-frame py-10 text-center mt-10">
@@ -227,19 +227,36 @@ function QuestBoard() {
   );
 }
 
-function EmptyQuestSlot({ i }: { i: number }) {
+function EmptyQuestSlot({ i, onAccept }: { i: number; onAccept: () => void }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.35, delay: i * 0.05 }}
-      className="empty-slot p-8 min-h-[260px] flex-col gap-4"
+      className="empty-slot p-6 min-h-[280px] flex-col gap-3"
     >
-      <div className="font-mono text-4xl text-bronze-dim/60" style={{ textShadow: "2px 2px 0 #000" }}>▢</div>
-      <span className="empty-line w-1/2" />
+      <div className="flex items-center justify-between w-full">
+        <span className="ribbon opacity-60">——</span>
+        <span className="font-mono text-sm text-bronze-dim">[Empty]</span>
+      </div>
+      <div className="font-mono text-3xl text-bronze-dim/60 mt-2" style={{ textShadow: "2px 2px 0 #000" }}>▢</div>
+      <div className="font-mono text-lg text-bronze-dim uppercase tracking-wide">——</div>
       <span className="empty-line w-2/3" />
-      <span className="label-pixel mt-2">Quest slot · vacant</span>
+      <div className="quest-rule my-3 w-full" />
+      <div className="flex justify-between w-full">
+        <div>
+          <div className="label-pixel text-bronze-dim">Reward</div>
+          <div className="font-mono text-2xl text-bronze-dim mt-1">⛁ ——</div>
+        </div>
+        <div className="text-right">
+          <div className="label-pixel text-bronze-dim">Deadline</div>
+          <div className="font-mono text-base text-bronze-dim">⧗ ——</div>
+        </div>
+      </div>
+      <button onClick={onAccept} className="btn-pixel mt-3 w-full !text-sm opacity-70">
+        ▶ Accept Quest
+      </button>
     </motion.div>
   );
 }
