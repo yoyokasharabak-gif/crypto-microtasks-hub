@@ -23,45 +23,73 @@ const SORTS = ["Most Recent", "Highest Reward", "Easiest", "Quickest"] as const;
 const SIGILS: Record<string, string> = {
   "AI Training": "⌬",
   "Image Labeling": "▣",
+  "Data Labeling": "▦",
+  "Image Classification": "◧",
   Surveys: "✎",
   Transcription: "♪",
   Moderation: "⚑",
+  "Content Moderation": "⚑",
   Validation: "✓",
 };
 
 type Quest = {
   id: string;
-  category: typeof CATEGORIES[number];
+  category: string;
   title: string;
   desc: string;
   reward: number;
   usd: number;
   minutes: number;
-  difficulty: "Easy" | "Medium" | "Hard";
+  difficulty: "Easy" | "Medium" | "Hard" | "——";
   slots: number;
   accuracy: number;
 };
 
-const QUESTS: Quest[] = [
-  { id: "q1", category: "AI Training", title: "Identify objects in satellite imagery", desc: "Tag vessels, runways and storage tanks across 40 high-resolution tiles. Reference guide provided.", reward: 0.05, usd: 1.20, minutes: 2, difficulty: "Easy", slots: 320, accuracy: 96 },
-  { id: "q2", category: "Image Labeling", title: "Tag medical scan anomalies", desc: "Annotate suspected lesions on 25 chest X-rays. Medical training not required — examples included.", reward: 0.18, usd: 4.32, minutes: 8, difficulty: "Medium", slots: 84, accuracy: 91 },
-  { id: "q3", category: "Surveys", title: "Rate game UX prototypes", desc: "Walk through 10 mobile game screens and rate clarity, friction and aesthetic on a 1–5 scale.", reward: 0.08, usd: 1.92, minutes: 5, difficulty: "Easy", slots: 200, accuracy: 98 },
-  { id: "q4", category: "Transcription", title: "Transcribe pilot radio chatter", desc: "3 minute audio clip of clear-band aviation comms. Standard ICAO phraseology.", reward: 0.22, usd: 5.28, minutes: 12, difficulty: "Medium", slots: 56, accuracy: 89 },
-  { id: "q5", category: "Moderation", title: "Review marketplace listings", desc: "Flag listings violating policy across electronics, fashion and collectibles. Clear rubric.", reward: 0.12, usd: 2.88, minutes: 6, difficulty: "Medium", slots: 140, accuracy: 93 },
-  { id: "q6", category: "Validation", title: "Verify on-chain merchant addresses", desc: "Cross-reference 30 Solana addresses against business registries. Browser-based.", reward: 0.35, usd: 8.40, minutes: 18, difficulty: "Hard", slots: 28, accuracy: 87 },
-  { id: "q7", category: "AI Training", title: "Caption product photographs", desc: "Write one-sentence descriptive captions for 50 e-commerce product photos.", reward: 0.09, usd: 2.16, minutes: 7, difficulty: "Easy", slots: 175, accuracy: 95 },
-  { id: "q8", category: "Image Labeling", title: "Bounding boxes — street furniture", desc: "Draw bounding boxes around benches, lamps and signage in 60 dashcam frames.", reward: 0.14, usd: 3.36, minutes: 9, difficulty: "Medium", slots: 96, accuracy: 92 },
-  { id: "q9", category: "Surveys", title: "Compare two coffee brands", desc: "Quick consumer panel — answer 12 questions about preference and packaging.", reward: 0.04, usd: 0.96, minutes: 3, difficulty: "Easy", slots: 410, accuracy: 99 },
-];
+// Six empty placeholder quests — board awaits first transmissions
+const PLACEHOLDER_QUESTS: Quest[] = Array.from({ length: 6 }).map((_, i) => ({
+  id: `empty-${i}`,
+  category: "All",
+  title: "——",
+  desc: "Awaiting first transmission from the patrons of the Guild.",
+  reward: 0,
+  usd: 0,
+  minutes: 0,
+  difficulty: "——",
+  slots: 0,
+  accuracy: 0,
+}));
 
 function QuestBoard() {
+  const { connected } = useWallet();
+  const [posted, setPosted] = useState<PostedQuest[]>([]);
+  useEffect(() => { setPosted(getPostedQuests()); }, []);
+
   const [query, setQuery] = useState("");
   const [cat, setCat] = useState<typeof CATEGORIES[number]>("All");
   const [sort, setSort] = useState<typeof SORTS[number]>("Most Recent");
   const [minReward, setMinReward] = useState(0);
 
+  // Convert posted (real) quests to display Quest format
+  const realQuests: Quest[] = useMemo(
+    () =>
+      posted.map((p) => ({
+        id: p.id,
+        category: p.category,
+        title: p.title,
+        desc: p.description || "Posted by patron · awaiting privateers.",
+        reward: p.reward,
+        usd: p.reward * 24,
+        minutes: 0,
+        difficulty: "Medium",
+        slots: 1,
+        accuracy: 0,
+      })),
+    [posted],
+  );
+
   const filtered = useMemo(() => {
-    let out = QUESTS.filter(
+    if (realQuests.length === 0) return [] as Quest[];
+    let out = realQuests.filter(
       (t) =>
         (cat === "All" || t.category === cat) &&
         t.reward >= minReward &&
@@ -70,10 +98,17 @@ function QuestBoard() {
           t.desc.toLowerCase().includes(query.toLowerCase())),
     );
     if (sort === "Highest Reward") out = [...out].sort((a, b) => b.reward - a.reward);
-    if (sort === "Easiest") out = [...out].sort((a, b) => a.accuracy - b.accuracy);
     if (sort === "Quickest") out = [...out].sort((a, b) => a.minutes - b.minutes);
     return out;
-  }, [query, cat, sort, minReward]);
+  }, [query, cat, sort, minReward, realQuests]);
+
+  const handleAccept = () => {
+    if (!connected) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+    alert("Quest not available yet. Complete setup first.");
+  };
 
   return (
     <div className="min-h-screen text-parchment">
