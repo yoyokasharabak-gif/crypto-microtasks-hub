@@ -107,7 +107,7 @@ function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Scoreboard — live data */}
+        {/* Scoreboard — awaiting first privateers */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,22 +118,20 @@ function Hero() {
             <span>Galactic Scoreboard</span>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6">
-            {[
-              { l: "Contracts Cleared", v: 50000, suf: "+" },
-              { l: "Active Privateers", v: 12000, suf: "+" },
-              { l: "Solar Gold Paid", v: 150000, suf: " SOL" },
-              { l: "Sectors Served", v: 180, suf: "+" },
-            ].map((s) => (
-              <div key={s.l} className="text-center md:text-left">
-                <div className="label-pixel mb-3">{s.l}</div>
+            {["Contracts Cleared", "Active Privateers", "Solar Gold Paid", "Sectors Served"].map((l) => (
+              <div key={l} className="text-center md:text-left">
+                <div className="label-pixel mb-3">{l}</div>
                 <div
-                  className="font-mono text-4xl md:text-5xl tabular-nums text-bronze"
-                  style={{ textShadow: "2px 2px 0 #000, 0 0 18px rgba(212,175,55,0.25)" }}
+                  className="font-mono text-4xl md:text-5xl tabular-nums text-bronze/40"
+                  style={{ textShadow: "2px 2px 0 #000" }}
                 >
-                  <AnimatedCounter value={s.v} suffix={s.suf} />
+                  ——
                 </div>
               </div>
             ))}
+          </div>
+          <div className="mt-6 pt-5 border-t-2 border-bronze/15 text-center">
+            <p className="label-pixel text-bronze-dim">▸ Awaiting first transmissions from the fleet</p>
           </div>
         </motion.div>
       </div>
@@ -221,21 +219,49 @@ type Bounty = {
   mins: number;
   diff: "Easy" | "Medium" | "Hard";
 };
-const SAMPLE: Bounty[] = [
-  { cat: "AI Training", title: "Identify objects in satellite imagery", reward: 0.05, usd: 1.2, mins: 2, diff: "Easy" },
-  { cat: "Image Labeling", title: "Tag medical scan anomalies", reward: 0.18, usd: 4.32, mins: 8, diff: "Medium" },
-  { cat: "Survey", title: "Rate game UX prototypes (10 screens)", reward: 0.08, usd: 1.92, mins: 5, diff: "Easy" },
-  { cat: "Transcription", title: "Transcribe pilot radio chatter (3 min)", reward: 0.22, usd: 5.28, mins: 12, diff: "Medium" },
-  { cat: "Moderation", title: "Review marketplace listings for policy", reward: 0.12, usd: 2.88, mins: 6, diff: "Medium" },
-  { cat: "Validation", title: "Verify on-chain merchant addresses", reward: 0.35, usd: 8.4, mins: 18, diff: "Hard" },
-];
+const SAMPLE: Bounty[] = [];
 
 function Bounties() {
   return (
     <Section eyebrow="Open Contracts" title="Today's Bounty Board">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {SAMPLE.map((b, i) => <BountyCard key={i} b={b} i={i} />)}
-      </div>
+      {SAMPLE.length === 0 ? (
+        <div className="pixel-frame p-12 md:p-20 text-center">
+          <div className="font-mono text-5xl text-bronze/50 mb-6" style={{ textShadow: "2px 2px 0 #000" }}>
+            ⌬ ◇ ⌬
+          </div>
+          <h3 className="text-2xl text-bronze uppercase tracking-widest" style={{ textShadow: "0 0 14px rgba(212,175,55,0.3)" }}>
+            The Bounty Board is Empty
+          </h3>
+          <p className="accent-italic mt-4 text-lg text-parchment/70 max-w-md mx-auto">
+            No contracts have been posted yet. The first patrons of the Guild are arriving soon.
+          </p>
+          <div className="quest-rule my-8" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="pixel-frame-soft p-6 trim-top opacity-60" style={{ borderStyle: "dashed" }}>
+                <div className="h-6 w-24 bg-bronze/10 mb-5" />
+                <div className="h-5 w-full bg-bronze/10 mb-3" />
+                <div className="h-5 w-3/4 bg-bronze/10" />
+                <div className="quest-rule my-6" />
+                <div className="flex justify-between">
+                  <div>
+                    <div className="h-3 w-12 bg-bronze/10 mb-2" />
+                    <div className="h-8 w-20 bg-bronze/10" />
+                  </div>
+                  <div>
+                    <div className="h-3 w-10 bg-bronze/10 mb-2" />
+                    <div className="h-5 w-16 bg-bronze/10" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {SAMPLE.map((b, i) => <BountyCard key={i} b={b} i={i} />)}
+        </div>
+      )}
     </Section>
   );
 }
@@ -318,94 +344,81 @@ function Categories() {
 
 /* ---------------- TESTIMONIALS ---------------- */
 function Testimonials() {
-  const voices = [
-    {
-      quote: "Saya bisa beli perlengkapan kuliah dari hasil labeling gambar. Bayarannya instan, langsung masuk wallet.",
-      name: "Ahmad",
-      role: "Mahasiswa IT · Bandung",
-      gold: 12.4,
-    },
-    {
-      quote: "Side hustle terbaik. Dalam seminggu saya kumpulkan 5 SOL — lebih cepat cair daripada platform lain.",
-      name: "Maria",
-      role: "Freelancer · Manila",
-      gold: 8.9,
-    },
-    {
-      quote: "Klien serius, kontrak jelas, verifikasi cepat. McKWork jadi pemasukan utama saya sekarang.",
-      name: "Budi",
-      role: "Data Annotator · Jakarta",
-      gold: 24.7,
-    },
-  ];
   return (
     <Section eyebrow="Voices from the Fleet" title="Voices of the Privateers">
       <div className="grid md:grid-cols-3 gap-6">
-        {voices.map((v, i) => (
+        {[0, 1, 2].map((i) => (
           <motion.figure
             key={i}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="pixel-frame p-8"
+            className="pixel-frame p-8 opacity-70"
+            style={{ borderStyle: "dashed" }}
           >
-            <span className="font-serif text-6xl text-bronze/40 leading-none block">"</span>
-            <p className="accent-italic text-lg text-parchment leading-snug mt-2">{v.quote}</p>
+            <span className="font-serif text-6xl text-bronze/30 leading-none block">"</span>
+            <div className="mt-4 space-y-3">
+              <div className="h-4 w-full bg-bronze/10" />
+              <div className="h-4 w-11/12 bg-bronze/10" />
+              <div className="h-4 w-2/3 bg-bronze/10" />
+            </div>
             <div className="quest-rule my-7" />
             <figcaption className="flex items-center justify-between">
-              <div>
-                <div className="font-mono text-bronze tracking-wider">{v.name}</div>
-                <div className="label-pixel mt-1 text-bronze-dim">{v.role}</div>
+              <div className="space-y-2">
+                <div className="h-4 w-24 bg-bronze/10" />
+                <div className="h-3 w-32 bg-bronze/10" />
               </div>
-              <div className="text-right">
-                <div className="font-mono text-2xl text-bronze tabular-nums" style={{ textShadow: "0 0 10px rgba(212,175,55,0.35)" }}>
-                  ⛁ {v.gold}
-                </div>
-                <div className="label-pixel mt-1 text-bronze-dim">Earned</div>
+              <div className="space-y-2 text-right">
+                <div className="h-6 w-16 bg-bronze/10 ml-auto" />
+                <div className="h-3 w-12 bg-bronze/10 ml-auto" />
               </div>
             </figcaption>
           </motion.figure>
         ))}
       </div>
+      <p className="text-center label-pixel text-bronze-dim mt-8">
+        ▸ Awaiting the first testimonies from our privateers
+      </p>
     </Section>
   );
 }
 
 /* ---------------- LEADERBOARD ---------------- */
 function Leaderboard() {
-  const top = [
-    { mark: "⚜️", name: "CaptainAlam", lvl: 42, gold: 45.2 },
-    { mark: "🏴‍☠️", name: "LunaCrypto", lvl: 38, gold: 32.8 },
-    { mark: "⚡", name: "SolanaMaster", lvl: 35, gold: 28.4 },
-    { mark: "🌙", name: "BountyHunter_89", lvl: 31, gold: 21.3 },
-    { mark: "✨", name: "PixelQueen", lvl: 29, gold: 18.7 },
-  ];
   return (
     <Section eyebrow="High Score" title="This Week's Top Privateers">
       <div className="pixel-frame overflow-hidden">
         <div className="font-mono text-bronze text-base tracking-[0.2em] px-6 py-4" style={{ borderBottom: "2px solid rgba(212,175,55,0.5)" }}>
           ━━━━ TOP OF THE FLEET ━━━━
         </div>
-        <ul className="divide-y" style={{ borderColor: "rgba(212,175,55,0.18)" }}>
-          {top.map((t, i) => (
-            <li
-              key={t.name}
-              className="flex items-center gap-4 px-6 py-5 hover:bg-bronze/5 transition-colors"
-              style={{ borderBottom: i < top.length - 1 ? "2px solid rgba(212,175,55,0.15)" : "none" }}
-            >
-              <span className="font-mono text-2xl text-bronze tabular-nums w-10" style={{ textShadow: "1px 1px 0 #000" }}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="text-2xl w-8 text-center">{t.mark}</span>
-              <span className="flex-1 font-mono text-parchment tracking-wider text-lg">{t.name}</span>
-              <span className="label-pixel text-bronze-dim hidden sm:inline">LV {t.lvl}</span>
-              <span className="font-mono text-xl text-bronze tabular-nums w-28 text-right" style={{ textShadow: "0 0 10px rgba(212,175,55,0.35)" }}>
-                ⛁ {t.gold.toFixed(1)}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <div className="px-6 py-16 text-center">
+          <div className="font-mono text-4xl text-bronze/40 mb-4" style={{ textShadow: "2px 2px 0 #000" }}>
+            ⚜  ◇  ⚜
+          </div>
+          <h3 className="font-mono text-xl text-bronze uppercase tracking-widest">
+            The Register is Empty
+          </h3>
+          <p className="accent-italic mt-3 text-parchment/70 max-w-md mx-auto">
+            No privateers have logged contracts this week. Be the first to claim the throne.
+          </p>
+          <div className="quest-rule my-8" />
+          <ul className="space-y-3 max-w-xl mx-auto">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <li
+                key={i}
+                className="flex items-center gap-4 px-4 py-4 opacity-50"
+                style={{ border: "2px dashed rgba(212,175,55,0.2)" }}
+              >
+                <span className="font-mono text-xl text-bronze/40 tabular-nums w-10 text-left" style={{ textShadow: "1px 1px 0 #000" }}>
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div className="h-4 flex-1 bg-bronze/10" />
+                <div className="h-4 w-20 bg-bronze/10" />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </Section>
   );

@@ -14,16 +14,7 @@ export const Route = createFileRoute("/leaderboard")({
 
 type Entry = { mark: string; name: string; lvl: number; quests: number; gold: number };
 
-const ENTRIES: Entry[] = [
-  { mark: "⚜️", name: "CaptainAlam", lvl: 42, quests: 612, gold: 45.2 },
-  { mark: "🏴‍☠️", name: "LunaCrypto", lvl: 38, quests: 528, gold: 32.8 },
-  { mark: "⚡", name: "SolanaMaster", lvl: 35, quests: 491, gold: 28.4 },
-  { mark: "🌙", name: "BountyHunter_89", lvl: 31, quests: 402, gold: 21.3 },
-  { mark: "✨", name: "PixelQueen", lvl: 29, quests: 378, gold: 18.7 },
-  { mark: "🛰️", name: "OrbitRunner", lvl: 27, quests: 341, gold: 15.9 },
-  { mark: "🔭", name: "NebulaScout", lvl: 25, quests: 298, gold: 13.1 },
-  { mark: "⚙️", name: "GearheadVi", lvl: 22, quests: 254, gold: 10.4 },
-];
+const ENTRIES: Entry[] = [];
 
 function RegisterPage() {
   return (
@@ -54,7 +45,36 @@ function RegisterPage() {
                 </tr>
               </thead>
               <tbody>
-                {ENTRIES.map((e, i) => (
+                {ENTRIES.length === 0 ? (
+                  <>
+                    <tr>
+                      <td colSpan={5} className="py-16 text-center">
+                        <div className="font-mono text-4xl text-bronze/40 mb-4" style={{ textShadow: "2px 2px 0 #000" }}>
+                          ⚜  ◇  ⚜
+                        </div>
+                        <h3 className="font-mono text-xl text-bronze uppercase tracking-widest">
+                          The Register is Empty
+                        </h3>
+                        <p className="accent-italic mt-3 text-parchment/70 max-w-md mx-auto px-6">
+                          No privateers have been recorded yet. The first contracts will inscribe their names here.
+                        </p>
+                      </td>
+                    </tr>
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <tr key={i} className="opacity-50" style={{ borderTop: "2px dashed rgba(212,175,55,0.18)" }}>
+                        <td className="py-5 px-6 text-bronze/40 text-xl tabular-nums" style={{ textShadow: "1px 1px 0 #000" }}>
+                          {String(i + 1).padStart(2, "0")}
+                        </td>
+                        <td className="py-5 px-6">
+                          <div className="h-4 w-40 bg-bronze/10" />
+                        </td>
+                        <td className="py-5 px-6"><div className="h-4 w-12 bg-bronze/10 ml-auto" /></td>
+                        <td className="py-5 px-6"><div className="h-4 w-10 bg-bronze/10 ml-auto" /></td>
+                        <td className="py-5 px-6"><div className="h-4 w-16 bg-bronze/10 ml-auto" /></td>
+                      </tr>
+                    ))}
+                  </>
+                ) : ENTRIES.map((e, i) => (
                   <tr key={e.name} className="hover:bg-bronze/5 transition-colors" style={{ borderBottom: i < ENTRIES.length - 1 ? "2px solid rgba(212,175,55,0.15)" : "none" }}>
                     <td className="py-5 px-6 text-bronze text-xl tabular-nums" style={{ textShadow: "1px 1px 0 #000" }}>
                       {String(i + 1).padStart(2, "0")}
