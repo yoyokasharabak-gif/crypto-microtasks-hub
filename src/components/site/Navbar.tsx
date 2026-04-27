@@ -150,3 +150,26 @@ function MarqueeContent() {
     </div>
   );
 }
+
+function WalletButton({ full }: { full?: boolean }) {
+  const { connected, address, balance, connect, disconnect } = useWallet();
+  if (connected && address) {
+    return (
+      <button
+        onClick={disconnect}
+        className={`btn-pixel !py-2 !px-4 !text-xs ${full ? "w-full" : ""}`}
+        title="Click to disconnect"
+      >
+        <span className="text-bronze">⛁</span>
+        <span className="font-mono tracking-wider">{shortAddr(address)}</span>
+        <span className="text-bronze-dim">· {balance.toFixed(2)} SOL</span>
+      </button>
+    );
+  }
+  return (
+    <button onClick={connect} className={`btn-pixel !py-2 !px-4 !text-sm ${full ? "w-full" : ""}`}>
+      <span className="text-bronze">⛁</span>
+      <span>Connect Wallet</span>
+    </button>
+  );
+}
