@@ -14,16 +14,7 @@ export const Route = createFileRoute("/leaderboard")({
 
 type Entry = { mark: string; name: string; lvl: number; quests: number; gold: number };
 
-const ENTRIES: Entry[] = [
-  { mark: "⚜️", name: "CaptainAlam", lvl: 42, quests: 612, gold: 45.2 },
-  { mark: "🏴‍☠️", name: "LunaCrypto", lvl: 38, quests: 528, gold: 32.8 },
-  { mark: "⚡", name: "SolanaMaster", lvl: 35, quests: 491, gold: 28.4 },
-  { mark: "🌙", name: "BountyHunter_89", lvl: 31, quests: 402, gold: 21.3 },
-  { mark: "✨", name: "PixelQueen", lvl: 29, quests: 378, gold: 18.7 },
-  { mark: "🛰️", name: "OrbitRunner", lvl: 27, quests: 341, gold: 15.9 },
-  { mark: "🔭", name: "NebulaScout", lvl: 25, quests: 298, gold: 13.1 },
-  { mark: "⚙️", name: "GearheadVi", lvl: 22, quests: 254, gold: 10.4 },
-];
+const ENTRIES: Entry[] = [];
 
 function RegisterPage() {
   return (
