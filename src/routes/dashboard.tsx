@@ -24,6 +24,14 @@ const stateColor: Record<string, string> = {
 };
 
 function AdventurerStats() {
+  const { connected, address, balance, connect } = useWallet();
+  const handleWithdraw = () => {
+    if (!connected) {
+      alert("Please connect wallet first");
+      return;
+    }
+    alert("No earnings yet");
+  };
   return (
     <div className="min-h-screen text-parchment">
       <Navbar />
@@ -39,8 +47,17 @@ function AdventurerStats() {
               <PixelAvatar />
               <div>
                 <div className="label-pixel text-bronze-dim">Wallet</div>
-                <div className="font-mono text-2xl text-bronze-dim/70 mt-1">— · not bound —</div>
-                <div className="font-mono text-bronze-dim/70 mt-2">⚜ LV — · UNRANKED</div>
+                <div className="font-mono text-xl text-parchment mt-1 break-all">
+                  {address ? shortAddr(address) : "—— · not bound ——"}
+                </div>
+                <div className="font-mono text-bronze mt-2">
+                  ⚜ {connected ? `LV 01 · PRIVATEER · ${balance.toFixed(2)} SOL` : "LV — · UNRANKED"}
+                </div>
+                {!connected && (
+                  <button onClick={connect} className="btn-pixel mt-3 !text-xs !py-1.5 !px-3">
+                    ⛁ Connect Wallet
+                  </button>
+                )}
               </div>
             </div>
             <div className="quest-rule my-6" />
@@ -67,7 +84,7 @@ function AdventurerStats() {
                   <span className="font-mono text-base text-bronze-dim/70 py-3">— ⛁</span>
                 </div>
               </div>
-              <button className="btn-pixel-solid mt-6 w-full md:w-auto" disabled style={{ opacity: 0.5, cursor: "not-allowed" }}>⟧ Withdraw Now ⟦</button>
+              <button onClick={handleWithdraw} className="btn-pixel-solid mt-6 w-full md:w-auto">⟧ Withdraw Earnings ⟦</button>
             </div>
           </div>
         </div>
